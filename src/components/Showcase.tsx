@@ -41,7 +41,7 @@ const Showcase = () => {
   ];
 
   return (
-    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id="showcase" className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       {/* Section Header */}
       <div className="text-center mb-16 animate-fade-in">
         <h2 className="text-4xl md:text-5xl font-bold text-gaming-text mb-4">
@@ -57,7 +57,8 @@ const Showcase = () => {
         {showcaseItems.map((item, index) => (
           <div
             key={item.id}
-            className="animate-scale-in"
+            id={item.id}
+            className="animate-scale-in scroll-mt-20"
             style={{ animationDelay: `${index * 0.2}s` }}
           >
             <ShowcaseCard

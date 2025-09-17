@@ -7,6 +7,7 @@ const Header = () => {
 
   const navigation = [
     { name: "Home", href: "#home" },
+    { name: "Showcase", href: "#showcase" },
     { name: "Worlds", href: "#worlds" },
     { name: "Addons", href: "#addons" },
     { name: "Shaders", href: "#shaders" },
@@ -31,7 +32,14 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="text-gaming-text hover:text-primary transition-colors duration-300 px-3 py-2 text-sm font-medium"
+                  className="text-gaming-text hover:text-primary transition-colors duration-300 px-3 py-2 text-sm font-medium smooth-scroll"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const target = document.querySelector(item.href);
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                 >
                   {item.name}
                 </a>
@@ -72,7 +80,14 @@ const Header = () => {
                   key={item.name}
                   href={item.href}
                   className="text-gaming-text hover:text-primary block px-3 py-2 text-base font-medium transition-colors duration-300"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setIsMenuOpen(false);
+                    const target = document.querySelector(item.href);
+                    if (target) {
+                      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}
                 >
                   {item.name}
                 </a>

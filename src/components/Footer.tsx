@@ -2,17 +2,19 @@ import { Github, Twitter, Youtube, Mail } from "lucide-react";
 
 const Footer = () => {
   const socialLinks = [
-    { icon: Github, href: "#", label: "GitHub" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Youtube, href: "#", label: "YouTube" },
-    { icon: Mail, href: "#", label: "Email" },
+    { icon: Github, href: "https://github.com/shreyagarwal72", label: "GitHub" },
+    { icon: Twitter, href: "https://instagram.com/vanshu_ag_72", label: "Instagram" },
+    { icon: Youtube, href: "https://youtube.com/@nextupstudioyt", label: "YouTube" },
+    { icon: Mail, href: "mailto:contact@nextupstudio.com", label: "Email" },
   ];
 
   const quickLinks = [
     { name: "Home", href: "#home" },
+    { name: "Showcase", href: "#showcase" },
     { name: "Worlds", href: "#worlds" },
     { name: "Addons", href: "#addons" },
     { name: "Shaders", href: "#shaders" },
+    { name: "Downloads", href: "#downloads" },
   ];
 
   return (
@@ -49,6 +51,13 @@ const Footer = () => {
                   <a
                     href={link.href}
                     className="text-gaming-text-muted hover:text-primary transition-colors duration-300"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const target = document.querySelector(link.href);
+                      if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }
+                    }}
                   >
                     {link.name}
                   </a>

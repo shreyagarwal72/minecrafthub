@@ -7,7 +7,7 @@ const SwordIntro = ({ onComplete }: { onComplete: () => void }) => {
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 500); // Wait for fade out animation
-    }, 3000);
+    }, 2000); // Changed from 3000 to 2000
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -30,27 +30,45 @@ const SwordIntro = ({ onComplete }: { onComplete: () => void }) => {
               viewBox="0 0 120 120" 
               className="text-primary"
             >
-              {/* Diamond Sword Left */}
+              {/* Diamond Sword Left - Improved texture matching uploaded image */}
               <g transform="rotate(-45 60 60)">
-                {/* Blade */}
-                <rect x="56" y="10" width="8" height="70" className="fill-cyan-400" />
-                <rect x="54" y="12" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="20" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="28" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="36" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="44" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="52" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="60" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="68" width="12" height="4" className="fill-cyan-300" />
+                {/* Blade - Teal/Cyan colors like diamond sword */}
+                <rect x="58" y="10" width="4" height="68" className="fill-teal-400" />
+                <rect x="56" y="12" width="8" height="4" className="fill-teal-300" />
+                <rect x="54" y="16" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="18" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="22" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="24" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="28" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="30" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="34" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="36" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="40" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="42" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="46" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="48" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="52" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="54" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="58" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="60" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="64" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="66" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="70" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="72" width="8" height="6" className="fill-teal-400" />
                 
-                {/* Guard */}
-                <rect x="50" y="78" width="20" height="6" className="fill-amber-600" />
+                {/* Guard - Dark teal */}
+                <rect x="50" y="78" width="20" height="4" className="fill-teal-700" />
+                <rect x="52" y="82" width="16" height="2" className="fill-teal-600" />
                 
-                {/* Handle */}
-                <rect x="56" y="84" width="8" height="20" className="fill-amber-800" />
+                {/* Handle - Brown colors */}
+                <rect x="58" y="84" width="4" height="16" className="fill-amber-800" />
+                <rect x="56" y="86" width="8" height="2" className="fill-amber-700" />
+                <rect x="56" y="90" width="8" height="2" className="fill-amber-700" />
+                <rect x="56" y="94" width="8" height="2" className="fill-amber-700" />
                 
-                {/* Pommel */}
-                <rect x="54" y="104" width="12" height="6" className="fill-amber-600" />
+                {/* Pommel - Dark brown */}
+                <rect x="54" y="100" width="12" height="4" className="fill-amber-900" />
+                <rect x="56" y="104" width="8" height="2" className="fill-amber-800" />
               </g>
             </svg>
           </div>
@@ -65,27 +83,45 @@ const SwordIntro = ({ onComplete }: { onComplete: () => void }) => {
               viewBox="0 0 120 120" 
               className="text-primary"
             >
-              {/* Diamond Sword Right */}
+              {/* Diamond Sword Right - Improved texture matching uploaded image */}
               <g transform="rotate(45 60 60)">
-                {/* Blade */}
-                <rect x="56" y="10" width="8" height="70" className="fill-cyan-400" />
-                <rect x="54" y="12" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="20" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="28" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="36" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="44" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="52" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="60" width="12" height="4" className="fill-cyan-300" />
-                <rect x="54" y="68" width="12" height="4" className="fill-cyan-300" />
+                {/* Blade - Teal/Cyan colors like diamond sword */}
+                <rect x="58" y="10" width="4" height="68" className="fill-teal-400" />
+                <rect x="56" y="12" width="8" height="4" className="fill-teal-300" />
+                <rect x="54" y="16" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="18" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="22" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="24" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="28" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="30" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="34" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="36" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="40" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="42" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="46" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="48" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="52" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="54" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="58" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="60" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="64" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="66" width="8" height="4" className="fill-teal-400" />
+                <rect x="54" y="70" width="12" height="2" className="fill-cyan-300" />
+                <rect x="56" y="72" width="8" height="6" className="fill-teal-400" />
                 
-                {/* Guard */}
-                <rect x="50" y="78" width="20" height="6" className="fill-amber-600" />
+                {/* Guard - Dark teal */}
+                <rect x="50" y="78" width="20" height="4" className="fill-teal-700" />
+                <rect x="52" y="82" width="16" height="2" className="fill-teal-600" />
                 
-                {/* Handle */}
-                <rect x="56" y="84" width="8" height="20" className="fill-amber-800" />
+                {/* Handle - Brown colors */}
+                <rect x="58" y="84" width="4" height="16" className="fill-amber-800" />
+                <rect x="56" y="86" width="8" height="2" className="fill-amber-700" />
+                <rect x="56" y="90" width="8" height="2" className="fill-amber-700" />
+                <rect x="56" y="94" width="8" height="2" className="fill-amber-700" />
                 
-                {/* Pommel */}
-                <rect x="54" y="104" width="12" height="6" className="fill-amber-600" />
+                {/* Pommel - Dark brown */}
+                <rect x="54" y="100" width="12" height="4" className="fill-amber-900" />
+                <rect x="56" y="104" width="8" height="2" className="fill-amber-800" />
               </g>
             </svg>
           </div>

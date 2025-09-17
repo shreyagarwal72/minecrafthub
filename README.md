@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# Nextup Studio – Minecraft Worlds, Addons & Shaders
 
-## Project info
+Welcome to **Nextup Studio’s Minecraft Hub** 🎮  
+Here you can download **Techno Gamerz Minecraft World (.mcworld)**, explore **premium Bedrock addons**, try **stunning shaders**, and play with **patched/original versions of Minecraft 1.21.101**.  
 
-**URL**: https://lovable.dev/projects/4924a6ac-110d-454f-ba42-350ce26b046c
+🚀 Live Website: [shreyagarwal72.github.io](https://shretagarwal72.github.io/)
 
-## How can I edit this code?
+---
 
-There are several ways of editing your application.
+## ✨ Features
+- 🌍 **Techno Gamerz World Download (.mcworld)** – ready to import and play  
+- ⚔️ **Combat & Actions Addons** – new moves, animations, abilities  
+- 🛠️ **Patched Minecraft 1.21.101** – Normal, Night Vision, 4D Skin, Vibrant builds  
+- 🎮 **Minecraft Bedrock Original 1.21.101** – official direct download (Android/PC/MCPE)  
+- 💡 **Shaders Collection** – cinematic lighting, realistic shadows, enhanced visuals  
+- 🗺️ **Adventure Maps** – hidden quests, custom survival builds, breeders, waterfalls  
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/4924a6ac-110d-454f-ba42-350ce26b046c) and start prompting.
+## 📸 Showcase
+- Survival Adventure World with scenic biomes  
+- Custom Combat Addons with epic abilities  
+- Premium Shaders that transform Bedrock visuals  
 
-Changes made via Lovable will be committed automatically to this repo.
+*(See website for screenshots and previews!)*
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🔗 Quick Links
+- 🌐 [**Home Page**](https://arwal72.github.io/)  
+- 🌍 [**Techno Gamerz World**](https://arwal72.github.io/myworld.html)  
+- ⚔️ [**Addons Hub**](https://arwal72.github.io/addons.html)  
+- 🛠️ [**Patched Versions**](https://arwal72.github.io/patched.html)  
+- 💡 [**Shaders**](https://arwal72.github.io/shader.html)  
+- 🎮 [**Full Minecraft 1.21.101**](https://arwal72.github.io/mc.html)  
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+---
 
-Follow these steps:
+## 📺 Connect With Me
+- 🎬 [**YouTube Channel**](https://www.youtube.com/@nextupstudioyt)  
+- 📸 [**Instagram**](https://instagram.com/vanshu_ag_72) 
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 📌 About This Repo
+This repository hosts the **Minecraft Projects website** of Nextup Studio, including:  
+- `index.html` → Main landing page with swords intro animation  
+- `myworld.html` → Techno Gamerz World download  
+- `addons.html` → Addons hub  
+- `patched.html` → Patched versions of Minecraft  
+- `mc.html` → Original Minecraft 1.21.101  
+- `shader.html` → Shaders collection  
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/4924a6ac-110d-454f-ba42-350ce26b046c) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+### ⚡ Credits
+Created with ❤️ by **Vanshu (Nextup Studio)**

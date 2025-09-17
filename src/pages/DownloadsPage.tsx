@@ -1,38 +1,64 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Download } from "lucide-react";
+import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone } from "lucide-react";
 
 const DownloadsPage = () => {
-  const versions = [
+  const mainVersions = [
     {
-      title: "Normal Version",
-      image: "/patched/1.jpg",
-      description: "Pure, original Minecraft 1.21.101 experience. No modifications. Maximum compatibility and stability for all players.",
-      downloadLink: "https://dl2.cdn9mc.com/index.php?act=download&id=1755232472&hash=68b5ae8601e6d",
-      downloadText: "Download Normal"
+      title: "Minecraft Music Version",
+      description: "Complete Minecraft experience with all original soundtracks and music. Full-featured version for the best gaming experience.",
+      downloadLink: "https://dl6.cdn9mc.com/index.php?act=download&id=1755352800&hash=68b7cd41a8cbe",
+      icon: Music,
+      primary: true
     },
     {
-      title: "Night Vision Version",
-      image: "/patched/2.jpg", 
-      description: "Always see clearly even in the darkest caves and night! Permanent Night Vision makes survival easier and exploration more fun.",
-      downloadLink: "https://download2.cdn9mc.com/index.php?act=download&id=1756570028&hash=68b5aee0eec00",
-      downloadText: "Download Night Vision"
-    },
-    {
-      title: "4D Skin Layer Version",
-      image: "/patched/3.jpg",
-      description: "Play with fully supported 4D/extra-layer skins! Stand out with custom character models just like in advanced Java mods.",
-      downloadLink: "https://files4.cdn9mc.com/index.php?act=download&id=1755232442&hash=68b5af01181d8",
-      downloadText: "Download 4D Skin Layer"
-    },
-    {
-      title: "Vibrant Visuals Extended",
-      image: "/patched/4.jpg",
-      description: "Enhanced saturated colors, custom sky, and dynamic lighting for the most visually immersive Minecraft 1.21.101 experience.",
-      downloadLink: "https://files4.cdn9mc.com/index.php?act=download&id=1755863842&hash=68b5af1f6feba",
-      downloadText: "Download Vibrant Visuals"
+      title: "Minecraft No Music Version", 
+      description: "Lightweight version without music files. Perfect for devices with limited storage space while maintaining full gameplay.",
+      downloadLink: "https://dl6.cdn9mc.com/index.php?act=download&id=1755352827&hash=68b7d13345e52",
+      icon: VolumeX,
+      primary: false
     }
+  ];
+
+  const features = [
+    {
+      icon: Music,
+      title: "Music & No Music",
+      description: "Both versions for what suits your storage and play style."
+    },
+    {
+      icon: Smartphone,
+      title: "Works Everywhere", 
+      description: "Android, Windows 10/11, MCPE, emulators, tablets all supported."
+    },
+    {
+      icon: Zap,
+      title: "Direct Fast Link",
+      description: "No ads, no fake redirects, instant and safe verified download."
+    },
+    {
+      icon: CheckCircle,
+      title: "1.21.101 Patch",
+      description: "Latest features, multiplayer, crossplay, bugfixes—official build."
+    },
+    {
+      icon: Shield,
+      title: "Trusted by Players",
+      description: "Only by Nextup Studio, always tested and real MC files."
+    },
+    {
+      icon: Users,
+      title: "Community Approved",
+      description: "Downloaded by thousands of players worldwide with positive feedback."
+    }
+  ];
+
+  const tips = [
+    "For No Music, app size is MUCH smaller and loads faster for low-storage phones.",
+    "Always back up your Minecraft worlds before upgrading or reinstalling.",
+    "Both versions are fully compatible with multiplayer and Realms.",
+    "No root or special permissions required for installation."
   ];
 
   return (
@@ -40,65 +66,98 @@ const DownloadsPage = () => {
       <Header />
       <main className="pt-20">
         <div className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16">
+          {/* Hero Section */}
+          <section className="text-center mb-16">
             <h1 className="text-4xl md:text-5xl font-bold text-gaming-text mb-4">
-              <span className="text-glow">Minecraft Downloads</span>
+              <span className="text-glow">Minecraft Original Full Version</span>
             </h1>
-            <p className="text-xl text-gaming-text-muted max-w-2xl mx-auto">
-              Download the latest Minecraft 1.21.101 patches by Nextup Studio. Each version offers a unique twist—see visuals below and pick your favorite!
+            <p className="text-2xl font-bold text-primary mb-6">
+              Minecraft Version 1.21.101
             </p>
-          </div>
+            
+            {/* Preview Images */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
+              <div className="aspect-video rounded-lg overflow-hidden">
+                <img 
+                  src="/images/6.jpg" 
+                  alt="Minecraft Bedrock Main Preview"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="aspect-video rounded-lg overflow-hidden">
+                <img 
+                  src="/images/7.jpg" 
+                  alt="Minecraft Bedrock Extra Preview" 
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+            
+            <p className="text-xl text-gaming-text-muted max-w-3xl mx-auto mb-8">
+              <strong>Download the latest, safest, and fastest Minecraft Bedrock 1.21.101:</strong><br />
+              Choose with music or a super-light No Music edition, both clean and tested.
+            </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            {versions.map((version, index) => (
-              <div 
-                key={index}
-                className="card-gaming p-6 hover:transform hover:scale-105 transition-all duration-300"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className="aspect-video mb-4 rounded-lg overflow-hidden">
-                  <img 
-                    src={version.image} 
-                    alt={`${version.title} Preview`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                
-                <h3 className="text-xl font-bold text-primary mb-3">{version.title}</h3>
-                
-                <p className="text-gaming-text-muted mb-6 leading-relaxed">
-                  {version.description}
-                </p>
-                
-                <Button asChild className="btn-gaming w-full">
+            {/* Download Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              {mainVersions.map((version, index) => (
+                <Button 
+                  key={index}
+                  asChild 
+                  className={version.primary ? "btn-gaming text-lg px-8 py-4" : "btn-gaming-outline text-lg px-8 py-4"}
+                >
                   <a 
-                    href={version.downloadLink} 
-                    target="_blank" 
+                    href={version.downloadLink}
+                    target="_blank"
                     rel="noopener noreferrer"
+                    download
                   >
-                    <Download className="w-4 h-4 mr-2" />
-                    {version.downloadText}
+                    <version.icon className="w-5 h-5 mr-2" />
+                    {version.title}
                   </a>
                 </Button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
 
-          <div className="card-gaming p-8 bg-amber-900/20 border-l-4 border-amber-500">
-            <h2 className="text-xl font-bold text-amber-400 mb-4">Important Notes</h2>
-            <div className="space-y-2 text-gaming-text-muted">
-              <p>
-                <strong className="text-amber-300">1.</strong> Night Vision and 4D Skin Layer versions do <strong>NOT</strong> include Minecraft original music.
-              </p>
-              <p>
-                <strong className="text-amber-300">2.</strong> I am <strong>not</strong> the real owner or manufacturer of these files.
-              </p>
-              <p className="text-sm">
-                All rights belong to their respective owners and Mojang/Microsoft.<br />
-                Use for personal educational/testing purposes only.
+          {/* Features Section */}
+          <section className="card-gaming p-8 mb-12">
+            <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+              Why Download from Nextup Studio?
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {features.map((feature, index) => (
+                <div 
+                  key={index}
+                  className="flex items-start space-x-4 p-4 rounded-lg bg-gaming-elevated/50 hover:bg-gaming-elevated transition-colors"
+                >
+                  <feature.icon className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="font-bold text-gaming-text mb-2">{feature.title}</h3>
+                    <p className="text-gaming-text-muted text-sm">{feature.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Setup & Tips Section */}
+          <section className="card-gaming p-8">
+            <h2 className="text-2xl font-bold text-primary mb-6">Setup & Tips</h2>
+            <ul className="space-y-3">
+              {tips.map((tip, index) => (
+                <li key={index} className="text-gaming-text-muted flex items-start">
+                  <span className="text-primary mr-3 mt-1">•</span>
+                  <span>{tip}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
+              <p className="text-gaming-text">
+                <strong className="text-primary">Need help or tutorial?</strong> Contact Nextup Studio support anytime for assistance with installation or gameplay.
               </p>
             </div>
-          </div>
+          </section>
         </div>
       </main>
       <Footer />

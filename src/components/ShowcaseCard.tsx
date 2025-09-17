@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 interface ShowcaseCardProps {
   title: string;
   description: string;
   image: string;
   buttonText: string;
-  onButtonClick: () => void;
+  href: string;
   className?: string;
 }
 
@@ -14,7 +15,7 @@ const ShowcaseCard = ({
   description, 
   image, 
   buttonText, 
-  onButtonClick,
+  href,
   className = ""
 }: ShowcaseCardProps) => {
   return (
@@ -39,11 +40,10 @@ const ShowcaseCard = ({
           {description}
         </p>
 
-        <Button 
-          className="btn-gaming-outline w-full group-hover:scale-105 transition-transform duration-300"
-          onClick={onButtonClick}
-        >
-          {buttonText}
+        <Button asChild className="btn-gaming-outline w-full group-hover:scale-105 transition-transform duration-300">
+          <Link to={href}>
+            {buttonText}
+          </Link>
         </Button>
       </div>
     </div>

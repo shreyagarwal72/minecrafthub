@@ -12,7 +12,7 @@ const Showcase = () => {
       description: "Explore custom survival with scenic biomes, beautiful builds, hidden loot, and questlines.",
       image: survivalWorldImage,
       buttonText: "More Details",
-      onClick: () => console.log("Navigate to worlds")
+      href: "/worlds"
     },
     {
       id: "addons",
@@ -20,7 +20,7 @@ const Showcase = () => {
       description: "Upgrade Minecraft with new combat moves, unique animations, and epic special abilities!",
       image: combatAddonImage,
       buttonText: "Download Addon",
-      onClick: () => console.log("Navigate to addons")
+      href: "/addons"
     },
     {
       id: "shaders",
@@ -28,7 +28,7 @@ const Showcase = () => {
       description: "Transform your Minecraft world with stunning new visuals! Experience better lighting, shadows, and beautiful effects.",
       image: shadersImage,
       buttonText: "Get Shaders",
-      onClick: () => console.log("Navigate to shaders")
+      href: "/shaders"
     },
     {
       id: "downloads",
@@ -36,7 +36,7 @@ const Showcase = () => {
       description: "Download the official Minecraft Bedrock 1.21.101 (Android/PC/MCPE). No ads, direct and safe from Nextup Studio.",
       image: minecraftOfficialImage,
       buttonText: "Download Minecraft",
-      onClick: () => console.log("Navigate to downloads")
+      href: "/downloads"
     }
   ];
 
@@ -66,7 +66,7 @@ const Showcase = () => {
               description={item.description}
               image={item.image}
               buttonText={item.buttonText}
-              onButtonClick={item.onClick}
+              href={item.href}
             />
           </div>
         ))}

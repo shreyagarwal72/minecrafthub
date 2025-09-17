@@ -1,4 +1,5 @@
 import { Github, Twitter, Youtube, Mail } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   const socialLinks = [
@@ -9,12 +10,11 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: "Home", href: "#home" },
-    { name: "Showcase", href: "#showcase" },
-    { name: "Worlds", href: "#worlds" },
-    { name: "Addons", href: "#addons" },
-    { name: "Shaders", href: "#shaders" },
-    { name: "Downloads", href: "#downloads" },
+    { name: "Home", href: "/" },
+    { name: "Worlds", href: "/worlds" },
+    { name: "Addons", href: "/addons" },
+    { name: "Shaders", href: "/shaders" },
+    { name: "Downloads", href: "/downloads" },
   ];
 
   return (
@@ -48,19 +48,12 @@ const Footer = () => {
             <ul className="space-y-2">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
+                  <Link
+                    to={link.href}
                     className="text-gaming-text-muted hover:text-primary transition-colors duration-300"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      const target = document.querySelector(link.href);
-                      if (target) {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                      }
-                    }}
                   >
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

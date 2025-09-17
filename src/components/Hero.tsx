@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import heroImage from "@/assets/gaming-hero.jpg";
 
 const Hero = () => {
@@ -36,17 +37,15 @@ const Hero = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-scale-in">
-            <Button 
-              className="btn-gaming text-lg px-8 py-4 animate-glow-pulse"
-              onClick={() => document.getElementById('worlds')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Explore My World
+            <Button asChild className="btn-gaming text-lg px-8 py-4 animate-glow-pulse">
+              <Link to="/worlds">
+                Explore My World
+              </Link>
             </Button>
-            <Button 
-              className="btn-gaming-outline text-lg px-8 py-4"
-              onClick={() => document.getElementById('addons')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              Discover Addons
+            <Button asChild className="btn-gaming-outline text-lg px-8 py-4">
+              <Link to="/addons">
+                Discover Addons
+              </Link>
             </Button>
           </div>
         </div>

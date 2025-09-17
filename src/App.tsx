@@ -8,6 +8,7 @@ import WorldsPage from "./pages/WorldsPage";
 import AddonsPage from "./pages/AddonsPage";
 import ShadersPage from "./pages/ShadersPage";
 import DownloadsPage from "./pages/DownloadsPage";
+import PatchPage from "./pages/PatchPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/addons" element={<AddonsPage />} />
           <Route path="/shaders" element={<ShadersPage />} />
           <Route path="/downloads" element={<DownloadsPage />} />
+          <Route path="/patch" element={<PatchPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

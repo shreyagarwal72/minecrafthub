@@ -40,6 +40,10 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        warning: {
+          DEFAULT: "hsl(38 92% 50%)",
+          foreground: "hsl(48 96% 89%)",
+        },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
@@ -89,6 +93,42 @@ export default {
           "0%, 100%": { transform: "translateY(0px)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        "sword-cross-left": {
+          "0%": { 
+            transform: "translateX(-200px) rotate(0deg)",
+            opacity: "0"
+          },
+          "30%": {
+            transform: "translateX(0px) rotate(0deg)", 
+            opacity: "1"
+          },
+          "50%": {
+            transform: "translateX(0px) rotate(0deg)",
+            opacity: "1"
+          },
+          "100%": {
+            transform: "translateX(-200px) rotate(-15deg)",
+            opacity: "0"
+          }
+        },
+        "sword-cross-right": {
+          "0%": { 
+            transform: "translateX(200px) rotate(0deg)",
+            opacity: "0"
+          },
+          "30%": {
+            transform: "translateX(0px) rotate(0deg)",
+            opacity: "1"
+          },
+          "50%": {
+            transform: "translateX(0px) rotate(0deg)",
+            opacity: "1"
+          },
+          "100%": {
+            transform: "translateX(200px) rotate(15deg)",
+            opacity: "0"
+          }
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -97,6 +137,8 @@ export default {
         "scale-in": "scale-in 0.4s ease-out",
         "glow-pulse": "glow-pulse 2s ease-in-out infinite",
         "float": "float 3s ease-in-out infinite",
+        "sword-cross-left": "sword-cross-left 3s ease-in-out",
+        "sword-cross-right": "sword-cross-right 3s ease-in-out",
       },
     },
   },

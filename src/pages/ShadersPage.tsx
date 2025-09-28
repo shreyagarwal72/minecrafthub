@@ -1,26 +1,29 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import solarShaderPreview from "@/assets/solar-shader-preview.jpg";
+import newbShaderPreview from "@/assets/newb-shader-preview.jpg";
+import prizmaShaderPreview from "@/assets/prizma-shader-preview.jpg";
 
 const ShadersPage = () => {
   const shaders = [
     {
       title: "Solar Shader",
-      image: "/images/1.jpeg",
+      image: solarShaderPreview,
       description: "Realistic lighting, beautiful colors, and soft shadows—this shader brings sunlight, smooth skies, and better water to Minecraft Bedrock! Great for screenshots and daily playing.",
       downloadLink: "/Addons/Solar-Shader.mcpack",
       downloadText: "Download Solar Shader (.mcpack)"
     },
     {
       title: "Newb Shader", 
-      image: "/Addons/mcpedl.jpg",
+      image: newbShaderPreview,
       description: "Easy-to-run, clean shader for all devices. Sharper shadows, brighter skies, cool water, and smooth nights. Perfect if you want performance plus better looks!",
       downloadLink: "/Addons/Newb.mcpack",
       downloadText: "Download Newb Shader (.mcpack)"
     },
     {
       title: "Prizma Shader",
-      image: "/Addons/0.png",
+      image: prizmaShaderPreview,
       description: "Vibrant lighting, rainbow water effects, realistic clouds, and dramatic sunsets. Prizma Shader pushes Minecraft visuals to new levels—perfect for creative builds and survival worlds!",
       downloadLink: "/Addons/Prizma.mcpack",
       downloadText: "Download Prizma Shader (.mcpack)"

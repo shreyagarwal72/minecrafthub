@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone } from "lucide-react";
+import minecraftMainPreview from "@/assets/minecraft-main-preview.jpg";
 
 const DownloadsPage = () => {
   const mainVersions = [
@@ -79,14 +80,14 @@ const DownloadsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
               <div className="aspect-video rounded-lg overflow-hidden">
                 <img 
-                  src="/images/6.jpg" 
+                  src={minecraftMainPreview} 
                   alt="Minecraft Bedrock Main Preview"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="aspect-video rounded-lg overflow-hidden">
                 <img 
-                  src="/images/7.jpg" 
+                  src={minecraftMainPreview} 
                   alt="Minecraft Bedrock Extra Preview" 
                   className="w-full h-full object-cover"
                 />

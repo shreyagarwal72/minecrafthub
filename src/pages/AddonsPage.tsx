@@ -36,7 +36,7 @@ const AddonsPage = () => {
       title: "Raiyon's Useful Offhand Addon",
       image: "/images/5.gif",
       description: "Real dual wielding in Bedrock Edition! Use shields, food, totems, arrows, and more in your offhand — just like Minecraft Java Edition. Perfect for PvP pros.",
-      downloadLink: "https://www.mediafire.com/file/addon5/Raiyon-Offhand.mcaddon/file",
+      downloadLink: "https://www.mediafire.com/file/vz4kwleud60vj3j/Raiyon.mcaddon/file",
       downloadText: "Download Useful Offhand Addon"
     },
     {

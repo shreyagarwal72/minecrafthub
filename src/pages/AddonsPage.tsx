@@ -8,7 +8,7 @@ const AddonsPage = () => {
       title: "Java Combat Addon",
       image: "/images/2.gif",
       description: "Enhance your Bedrock combat with new weapons and Java Edition-style effects. Includes sweeping, shield blocking, instant attack speeds, and more! Perfect for PvP and vanilla+ fans.",
-      downloadLink: "https://www.mediafire.com/file/addon1/Raiyon-Java-Combat.mcaddon/file",
+      downloadLink: "https://www.mediafire.com/file/m830if9sum1oocc/Raiyon+Java+combat.mcaddon/file",
       downloadText: "Download Java Combat Addon"
     },
     {

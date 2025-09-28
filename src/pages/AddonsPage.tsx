@@ -44,7 +44,7 @@ const AddonsPage = () => {
       image: "https://img.youtube.com/vi/5CdlEFepD9c/hqdefault.jpg",
       description: "A complete, clean, responsive Minecraft Bedrock UI resource pack. New features: animated menus, advanced controls, exclusive screen options, server XP, quick settings & more!",
       videoLink: "https://youtu.be/5CdlEFepD9c?feature=shared",
-      downloadLink: "https://www.mediafire.com/file/addon6/Ty-el-UI-Pack.mcpack/file",
+      downloadLink: "https://www.mediafire.com/file/pxh53kd6j6ot670/Ty-el.mcpack/file",
       downloadText: "Download Ty-el's UI Pack"
     },
     {

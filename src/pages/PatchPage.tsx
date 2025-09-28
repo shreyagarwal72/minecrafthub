@@ -22,7 +22,7 @@ const PatchPage = () => {
     {
       title: "4D Skin Layer Version",
       description: "Play with fully supported 4D/extra-layer skins! Stand out with custom character models just like in advanced Java mods.",
-      downloadLink: "https://www.mediafire.com/file/patch3/Minecraft-4DSkin-1.21.101.apk/file",
+      downloadLink: "https://files4.cdn9mc.com/index.php?act=dl&id=1755232442",
       icon: Shield,
       image: "/patched/3.jpg"
     },

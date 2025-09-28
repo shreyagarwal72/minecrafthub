@@ -25,7 +25,7 @@ const ShadersPage = () => {
       title: "Prizma Shader",
       image: prizmaShaderPreview,
       description: "Vibrant lighting, rainbow water effects, realistic clouds, and dramatic sunsets. Prizma Shader pushes Minecraft visuals to new levels—perfect for creative builds and survival worlds!",
-      downloadLink: "https://www.mediafire.com/file/shader3/Prizma-Shader.mcpack/file",
+      downloadLink: "https://www.mediafire.com/file/lw7k9vzvj9yxkt8/Prizma.mcpack/file",
       downloadText: "Download Prizma Shader (.mcpack)"
     }
   ];

@@ -15,7 +15,7 @@ const AddonsPage = () => {
       title: "Java Saturation Addon", 
       image: "/images/1.gif",
       description: "Get true Java Edition hunger & saturation mechanics in Minecraft Bedrock. Never worry about unfair food loss again. Plug and play!",
-      downloadLink: "https://www.mediafire.com/file/addon2/Raiyon-Java-Saturation.mcaddon/file",
+      downloadLink: "https://www.mediafire.com/file/f5npxzqk25yklgd/Raiyon's+Java+Saturation.mcaddon/file",
       downloadText: "Download Java Saturation Addon"
     },
     {

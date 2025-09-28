@@ -11,7 +11,7 @@ const ShadersPage = () => {
       title: "Solar Shader",
       image: solarShaderPreview,
       description: "Realistic lighting, beautiful colors, and soft shadows—this shader brings sunlight, smooth skies, and better water to Minecraft Bedrock! Great for screenshots and daily playing.",
-      downloadLink: "https://www.mediafire.com/file/shader1/Solar-Shader.mcpack/file",
+      downloadLink: "https://www.mediafire.com/file/nafjf9i03plkupn/Solar-Shader.mcpack/file",
       downloadText: "Download Solar Shader (.mcpack)"
     },
     {

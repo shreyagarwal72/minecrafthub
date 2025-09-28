@@ -8,28 +8,28 @@ const PatchPage = () => {
     {
       title: "Normal Version",
       description: "Pure, original Minecraft 1.21.101 experience. No modifications. Maximum compatibility and stability for all players.",
-      downloadLink: "https://dl2.cdn9mc.com/index.php?act=download&id=1755232472&hash=68b5ae8601e6d",
+      downloadLink: "https://www.mediafire.com/file/patch1/Minecraft-Normal-1.21.101.apk/file",
       icon: Gamepad2,
       image: "/patched/1.jpg"
     },
     {
       title: "Night Vision Version", 
       description: "Always see clearly even in the darkest caves and night! Permanent Night Vision makes survival easier and exploration more fun.",
-      downloadLink: "https://download2.cdn9mc.com/index.php?act=download&id=1756570028&hash=68b5aee0eec00",
+      downloadLink: "https://www.mediafire.com/file/patch2/Minecraft-NightVision-1.21.101.apk/file",
       icon: Eye,
       image: "/patched/2.jpg"
     },
     {
       title: "4D Skin Layer Version",
       description: "Play with fully supported 4D/extra-layer skins! Stand out with custom character models just like in advanced Java mods.",
-      downloadLink: "https://files4.cdn9mc.com/index.php?act=download&id=1755232442&hash=68b5af01181d8",
+      downloadLink: "https://www.mediafire.com/file/patch3/Minecraft-4DSkin-1.21.101.apk/file",
       icon: Shield,
       image: "/patched/3.jpg"
     },
     {
       title: "Vibrant Visuals Extended",
       description: "Enhanced saturated colors, custom sky, and dynamic lighting for the most visually immersive Minecraft 1.21.101 experience.",
-      downloadLink: "https://files4.cdn9mc.com/index.php?act=download&id=1755863842&hash=68b5af1f6feba",
+      downloadLink: "https://www.mediafire.com/file/patch4/Minecraft-Vibrant-1.21.101.apk/file",
       icon: Sparkles,
       image: "/patched/4.jpg"
     }

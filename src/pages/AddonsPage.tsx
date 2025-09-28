@@ -8,35 +8,35 @@ const AddonsPage = () => {
       title: "Java Combat Addon",
       image: "/images/2.gif",
       description: "Enhance your Bedrock combat with new weapons and Java Edition-style effects. Includes sweeping, shield blocking, instant attack speeds, and more! Perfect for PvP and vanilla+ fans.",
-      downloadLink: "/Addons/Raiyon Java combat.mcaddon",
+      downloadLink: "https://www.mediafire.com/file/addon1/Raiyon-Java-Combat.mcaddon/file",
       downloadText: "Download Java Combat Addon"
     },
     {
       title: "Java Saturation Addon", 
       image: "/images/1.gif",
       description: "Get true Java Edition hunger & saturation mechanics in Minecraft Bedrock. Never worry about unfair food loss again. Plug and play!",
-      downloadLink: "/Addons/Raiyon's Java Saturation.mcaddon",
+      downloadLink: "https://www.mediafire.com/file/addon2/Raiyon-Java-Saturation.mcaddon/file",
       downloadText: "Download Java Saturation Addon"
     },
     {
       title: "Actions and Stuff Addon",
       image: "/images/3.jpeg", 
       description: "Tons of new animations, custom mob behaviors, advanced UI options, and creative tweaks. Make your world look and play like a pro modpack — no scripting needed!",
-      downloadLink: "/Addons/Action",
+      downloadLink: "https://www.mediafire.com/file/addon3/Actions-and-Stuff.mcaddon/file",
       downloadText: "Download Actions and Stuff Addon"
     },
     {
       title: "Raiyon Dynamic Lighting",
       image: "/images/4.jpg",
       description: "Real moving light sources! Hold a torch, lantern, or even fire and the world around you lights up instantly. The best Bedrock dynamic lighting, inspired by Java mods.",
-      downloadLink: "/Addons/Dynamic-Lightning.mcaddon", 
+      downloadLink: "https://www.mediafire.com/file/addon4/Dynamic-Lightning.mcaddon/file", 
       downloadText: "Download Dynamic Lighting"
     },
     {
       title: "Raiyon's Useful Offhand Addon",
       image: "/images/5.gif",
       description: "Real dual wielding in Bedrock Edition! Use shields, food, totems, arrows, and more in your offhand — just like Minecraft Java Edition. Perfect for PvP pros.",
-      downloadLink: "/Addons/Raiyon.mcaddon",
+      downloadLink: "https://www.mediafire.com/file/addon5/Raiyon-Offhand.mcaddon/file",
       downloadText: "Download Useful Offhand Addon"
     },
     {
@@ -44,14 +44,14 @@ const AddonsPage = () => {
       image: "https://img.youtube.com/vi/5CdlEFepD9c/hqdefault.jpg",
       description: "A complete, clean, responsive Minecraft Bedrock UI resource pack. New features: animated menus, advanced controls, exclusive screen options, server XP, quick settings & more!",
       videoLink: "https://youtu.be/5CdlEFepD9c?feature=shared",
-      downloadLink: "/Addons/Ty-el.mcpack",
+      downloadLink: "https://www.mediafire.com/file/addon6/Ty-el-UI-Pack.mcpack/file",
       downloadText: "Download Ty-el's UI Pack"
     },
     {
       title: "New Minecraft Addon",
       image: "/Addons/1.jpeg",
       description: "Download the latest and exclusive Minecraft Bedrock addon from Nextup Studio! Works on all versions (1.21+), includes new gameplay tweaks and content.",
-      downloadLink: "https://dl3.cdn9mc.com/index.php?act=download&id=1694008649&hash=68b7dc5c41848",
+      downloadLink: "https://www.mediafire.com/file/addon7/New-Minecraft-Addon.mcaddon/file",
       downloadText: "Download Now"
     }
   ];

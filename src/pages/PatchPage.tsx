@@ -8,14 +8,14 @@ const PatchPage = () => {
     {
       title: "Normal Version",
       description: "Pure, original Minecraft 1.21.101 experience. No modifications. Maximum compatibility and stability for all players.",
-      downloadLink: "https://www.mediafire.com/file/patch1/Minecraft-Normal-1.21.101.apk/file",
+      downloadLink: "https://dl2.cdn9mc.com/index.php?act=dl&id=1755232472",
       icon: Gamepad2,
       image: "/patched/1.jpg"
     },
     {
       title: "Night Vision Version", 
       description: "Always see clearly even in the darkest caves and night! Permanent Night Vision makes survival easier and exploration more fun.",
-      downloadLink: "https://www.mediafire.com/file/patch2/Minecraft-NightVision-1.21.101.apk/file",
+      downloadLink: "https://download2.cdn9mc.com/index.php?act=dl&id=1756570028",
       icon: Eye,
       image: "/patched/2.jpg"
     },

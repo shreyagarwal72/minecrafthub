@@ -18,7 +18,7 @@ const ShadersPage = () => {
       title: "Newb Shader", 
       image: newbShaderPreview,
       description: "Easy-to-run, clean shader for all devices. Sharper shadows, brighter skies, cool water, and smooth nights. Perfect if you want performance plus better looks!",
-      downloadLink: "https://www.mediafire.com/file/shader2/Newb-Shader.mcpack/file",
+      downloadLink: "https://www.mediafire.com/file/cradp8pfknq2pe1/Newb.mcpack/file",
       downloadText: "Download Newb Shader (.mcpack)"
     },
     {

@@ -29,7 +29,7 @@ const AddonsPage = () => {
       title: "Raiyon Dynamic Lighting",
       image: "/images/4.jpg",
       description: "Real moving light sources! Hold a torch, lantern, or even fire and the world around you lights up instantly. The best Bedrock dynamic lighting, inspired by Java mods.",
-      downloadLink: "https://www.mediafire.com/file/addon4/Dynamic-Lightning.mcaddon/file", 
+      downloadLink: "https://www.mediafire.com/file/oz8vwi3lhyv9vhl/Dynamic-Lightning.mcaddon/file", 
       downloadText: "Download Dynamic Lighting"
     },
     {

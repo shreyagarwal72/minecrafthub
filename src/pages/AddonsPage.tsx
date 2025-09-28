@@ -48,10 +48,10 @@ const AddonsPage = () => {
       downloadText: "Download Ty-el's UI Pack"
     },
     {
-      title: "New Minecraft Addon",
+      title: "Optifine",
       image: "/Addons/1.jpeg",
-      description: "Download the latest and exclusive Minecraft Bedrock addon from Nextup Studio! Works on all versions (1.21+), includes new gameplay tweaks and content.",
-      downloadLink: "https://www.mediafire.com/file/addon7/New-Minecraft-Addon.mcaddon/file",
+      description: "Download the latest and exclusive Optifine Bedrock addon from Nextup Studio! Works on all versions (1.21+), includes new gameplay tweaks and content.",
+      downloadLink: "https://www.mediafire.com/file/xccrf2gasi0nuua/Optifine-Plus-Plus-Client-MCPE-1.20.mcpack.zip/file",
       downloadText: "Download Now"
     }
   ];

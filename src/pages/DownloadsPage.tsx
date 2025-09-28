@@ -9,14 +9,14 @@ const DownloadsPage = () => {
     {
       title: "Minecraft Music Version",
       description: "Complete Minecraft experience with all original soundtracks and music. Full-featured version for the best gaming experience.",
-      downloadLink: "https://www.mediafire.com/file/example1/Minecraft-Music-1.21.101.apk/file",
+      downloadLink: "https://dl6.cdn9mc.com/index.php?act=dl&id=1755352800",
       icon: Music,
       primary: true
     },
     {
       title: "Minecraft No Music Version", 
       description: "Lightweight version without music files. Perfect for devices with limited storage space while maintaining full gameplay.",
-      downloadLink: "https://www.mediafire.com/file/example2/Minecraft-NoMusic-1.21.101.apk/file",
+      downloadLink: "https://dl6.cdn9mc.com/index.php?act=dl&id=1755352827",
       icon: VolumeX,
       primary: false
     }

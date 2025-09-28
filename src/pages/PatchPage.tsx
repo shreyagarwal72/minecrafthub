@@ -29,7 +29,7 @@ const PatchPage = () => {
     {
       title: "Vibrant Visuals Extended",
       description: "Enhanced saturated colors, custom sky, and dynamic lighting for the most visually immersive Minecraft 1.21.101 experience.",
-      downloadLink: "https://www.mediafire.com/file/patch4/Minecraft-Vibrant-1.21.101.apk/file",
+      downloadLink: "https://files4.cdn9mc.com/index.php?act=dl&id=1755863842",
       icon: Sparkles,
       image: "/patched/4.jpg"
     }

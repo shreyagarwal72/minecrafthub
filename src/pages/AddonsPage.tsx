@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import customAddonPack from "@/assets/custom-addon-pack.jpg";
 
 const AddonsPage = () => {
   const addons = [
@@ -53,6 +54,13 @@ const AddonsPage = () => {
       description: "Download the latest and exclusive Optifine Bedrock addon from Nextup Studio! Works on all versions (1.21+), includes new gameplay tweaks and content.",
       downloadLink: "https://www.mediafire.com/file/xccrf2gasi0nuua/Optifine-Plus-Plus-Client-MCPE-1.20.mcpack.zip/file",
       downloadText: "Download Now"
+    },
+    {
+      title: "Custom Addon Pack crafted by Us",
+      image: customAddonPack,
+      description: "Exclusive custom addon pack handcrafted by Nextup Studio! A unique collection combining the best features, optimizations, and enhancements for the ultimate Minecraft Bedrock experience.",
+      downloadLink: "https://www.mediafire.com/file/j9n4hsitabze51j/My+addons.mcaddon/file",
+      downloadText: "Download Custom Pack"
     }
   ];
 

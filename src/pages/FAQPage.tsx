@@ -188,9 +188,12 @@ const FAQPage = () => {
                           : "bg-background border border-border"
                       }`}
                     >
-                      <p className="text-sm md:text-base whitespace-pre-wrap break-words">
-                        {message.content}
-                      </p>
+                      <div 
+                        className="text-sm md:text-base whitespace-pre-wrap break-words"
+                        dangerouslySetInnerHTML={{
+                          __html: message.content.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>').replace(/\*(.+?)\*/g, '<strong>$1</strong>')
+                        }}
+                      />
                     </div>
 
                     {message.role === "user" && (

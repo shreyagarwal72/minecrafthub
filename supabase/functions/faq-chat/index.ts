@@ -13,6 +13,15 @@ WEBSITE INFORMATION:
 - Website URL: https://minecraft-hub-xi.vercel.app/
 - Purpose: Premium Minecraft content platform offering worlds, addons, shaders, and modified versions
 
+CREATOR INFORMATION:
+- Creator: Vanshu Agarwal
+- Role: Video Editor, Gamer, and Musician
+- Background: Class 11 PCM Science student from Agra, Uttar Pradesh, India
+- Expertise: Video editing, post-production workflows for gaming content, creative content creation
+- Passion: Storytelling through visual media, combining gaming experiences with video editing
+- Contact: sanjayvansu1973@gmail.com
+- Portfolio: https://vanshubhai.vercel.app
+
 CONTENT CATEGORIES:
 
 1. WORLDS:

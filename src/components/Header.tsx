@@ -14,6 +14,7 @@ const Header = () => {
     { name: "Shaders", href: "/shaders" },
     { name: "Patch Downloads", href: "/patch" },
     { name: "Downloads", href: "/downloads" },
+    { name: "FAQ", href: "/faq" },
   ];
 
   return (

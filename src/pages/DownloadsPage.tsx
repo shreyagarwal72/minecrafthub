@@ -9,14 +9,14 @@ const DownloadsPage = () => {
     {
       title: "Minecraft Music Version",
       description: "Complete Minecraft experience with all original soundtracks and music. Full-featured version for the best gaming experience.",
-      downloadLink: "https://dl6.cdn9mc.com/index.php?act=dl&id=1755352800",
+      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-124.apk",
       icon: Music,
       primary: true
     },
     {
       title: "Minecraft No Music Version", 
       description: "Lightweight version without music files. Perfect for devices with limited storage space while maintaining full gameplay.",
-      downloadLink: "https://dl6.cdn9mc.com/index.php?act=dl&id=1755352827",
+      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-124.apk",
       icon: VolumeX,
       primary: false
     }
@@ -40,7 +40,7 @@ const DownloadsPage = () => {
     },
     {
       icon: CheckCircle,
-      title: "1.21.101 Patch",
+      title: "1.21.124 Patch",
       description: "Latest features, multiplayer, crossplay, bugfixes—official build."
     },
     {
@@ -73,7 +73,7 @@ const DownloadsPage = () => {
               <span className="text-glow">Minecraft Original Full Version</span>
             </h1>
             <p className="text-2xl font-bold text-primary mb-6">
-              Minecraft Version 1.21.101
+              Minecraft Version 1.21.124
             </p>
             
             {/* Preview Images */}
@@ -95,7 +95,7 @@ const DownloadsPage = () => {
             </div>
             
             <p className="text-xl text-gaming-text-muted max-w-3xl mx-auto mb-8">
-              <strong>Download the latest, safest, and fastest Minecraft Bedrock 1.21.101:</strong><br />
+              <strong>Download the latest, safest, and fastest Minecraft Bedrock 1.21.124:</strong><br />
               Choose with music or a super-light No Music edition, both clean and tested.
             </p>
 

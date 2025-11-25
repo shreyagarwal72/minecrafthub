@@ -3,6 +3,7 @@ import survivalWorldImage from "@/assets/survival-world.jpg";
 import combatAddonImage from "@/assets/combat-addon.jpg";
 import shadersImage from "@/assets/shaders.jpg";
 import minecraftOfficialImage from "@/assets/minecraft-official.jpg";
+import officialPatchImage from "@/assets/minecraft-main-preview-updated.jpg";
 
 const Showcase = () => {
   const showcaseItems = [
@@ -37,6 +38,14 @@ const Showcase = () => {
       image: minecraftOfficialImage,
       buttonText: "Download Minecraft",
       href: "/downloads"
+    },
+    {
+      id: "patch",
+      title: "Minecraft Patched 1.21.124",
+      description: "Official Minecraft 1.21.124 patched version. Pure, original experience with enhanced compatibility and stability.",
+      image: officialPatchImage,
+      buttonText: "Download Patch",
+      href: "/patch"
     }
   ];
 

@@ -38,8 +38,8 @@ const Hero = () => {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-scale-in">
             <Button asChild className="btn-gaming text-lg px-8 py-4 animate-glow-pulse">
-              <Link to="/worlds">
-                Explore My World
+              <Link to="#showcase">
+                Get Started
               </Link>
             </Button>
             <Button asChild className="btn-gaming-outline text-lg px-8 py-4">

@@ -2,7 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone } from "lucide-react";
-import minecraftMainPreview from "@/assets/minecraft-main-preview.jpg";
+import minecraftMainPreview from "@/assets/minecraft-main-preview-updated.jpg";
 
 const DownloadsPage = () => {
   const mainVersions = [

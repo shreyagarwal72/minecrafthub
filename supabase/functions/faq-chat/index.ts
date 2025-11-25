@@ -46,10 +46,12 @@ CONTENT CATEGORIES:
 4. MODIFIED VERSIONS:
 - Modified APKs with enhanced features
 - Patched versions for additional functionality
+- Latest version: Minecraft 1.21.124
 - All modifications are safe and tested
 
 5. DOWNLOADS:
 - Direct download links for all content
+- Current Minecraft version: 1.21.124 (Latest Release)
 - Step-by-step installation guides
 - Regular updates and new content
 - Free access to premium content

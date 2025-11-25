@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import solarShaderPreview from "@/assets/solar-shader-preview.jpg";
 import newbShaderPreview from "@/assets/newb-shader-preview.jpg";
 import prizmaShaderPreview from "@/assets/prizma-shader-preview.jpg";
+import bslShaderPreview from "@/assets/bsl-shader-preview.jpg";
 
 const ShadersPage = () => {
   const shaders = [
@@ -27,6 +28,13 @@ const ShadersPage = () => {
       description: "Vibrant lighting, rainbow water effects, realistic clouds, and dramatic sunsets. Prizma Shader pushes Minecraft visuals to new levels—perfect for creative builds and survival worlds!",
       downloadLink: "https://www.mediafire.com/file/lw7k9vzvj9yxkt8/Prizma.mcpack/file",
       downloadText: "Download Prizma Shader (.mcpack)"
+    },
+    {
+      title: "BSL Shader - Vibrant Visuals",
+      image: bslShaderPreview,
+      description: "Transform Minecraft with dynamic lighting, reflective water with ripples, swaying foliage, rich saturated colors, soft shadows, and atmospheric skies. Performance optimized for smooth gameplay on most devices!",
+      downloadLink: "https://edge.forgecdn.net/files/7242/567/BSL%20Shader.mcpack?ft=60f413137182722f5983b79001577d51&bd=zp8g30su1g",
+      downloadText: "Download BSL Shader (.mcpack)"
     }
   ];
 

@@ -1,16 +1,25 @@
+import { Helmet } from "react-helmet";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import customAddonPack from "@/assets/custom-addon-pack.jpg";
+import minecraft3DPack from "@/assets/minecraft-3d-pack.jpg";
 
 const AddonsPage = () => {
   const addons = [
     {
-      title: "Java Combat Addon",
+      title: "Raiyon's Java Combat Addon",
       image: "/images/2.gif",
-      description: "Enhance your Bedrock combat with new weapons and Java Edition-style effects. Includes sweeping, shield blocking, instant attack speeds, and more! Perfect for PvP and vanilla+ fans.",
-      downloadLink: "https://www.mediafire.com/file/m830if9sum1oocc/Raiyon+Java+combat.mcaddon/file",
+      description: "Bring Java Edition combat mechanics to Bedrock! Features sweeping edge attacks, shield blocking, instant attack speeds, critical hits, and advanced PvP mechanics. Perfect for competitive players and vanilla+ enthusiasts.",
+      downloadLink: "https://mcpedl.com/raiyons-java-combat-addon/",
       downloadText: "Download Java Combat Addon"
+    },
+    {
+      title: "Minecraft 3D Texture Pack",
+      image: minecraft3DPack,
+      description: "Transform your Minecraft world with realistic 3D textures! This resource pack by LvzBx adds stunning 3D depth to blocks and items without sacrificing performance. Perfect for both high-end and low-end devices.",
+      downloadLink: "https://mcpedl.com/leaving/?url=https%3A%2F%2Fdirect-link.net%2F144609%2Ftexture-pack1&blid=142",
+      downloadText: "Download Minecraft 3D Pack"
     },
     {
       title: "Java Saturation Addon", 
@@ -66,6 +75,29 @@ const AddonsPage = () => {
 
   return (
     <div className="min-h-screen bg-gaming-bg">
+      <Helmet>
+        <title>Minecraft Bedrock Addons & Mods - Combat, 3D Textures, UI Packs | Nextup Studio</title>
+        <meta name="description" content="Download premium Minecraft Bedrock addons including Java Combat mechanics, 3D texture packs, dynamic lighting, useful offhand, and custom UI packs. Free MCPE addons optimized for all devices." />
+        <meta name="keywords" content="minecraft addons, bedrock addons, mcpe mods, java combat addon, 3d texture pack, minecraft shaders, dynamic lighting, offhand addon, minecraft ui pack, optifine bedrock" />
+        <link rel="canonical" href="https://minecraft-hub-xi.vercel.app/addons" />
+        <meta property="og:title" content="Minecraft Bedrock Addons & Mods - Combat, 3D Textures, UI Packs" />
+        <meta property="og:description" content="Download premium Minecraft Bedrock addons including Java Combat mechanics, 3D texture packs, dynamic lighting, and more. Free MCPE addons optimized for all devices." />
+        <meta property="og:url" content="https://minecraft-hub-xi.vercel.app/addons" />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CollectionPage",
+            "name": "Minecraft Bedrock Addons Collection",
+            "description": "Premium Minecraft Bedrock Edition addons and modifications",
+            "url": "https://minecraft-hub-xi.vercel.app/addons",
+            "provider": {
+              "@type": "Organization",
+              "name": "Nextup Studio"
+            }
+          })}
+        </script>
+      </Helmet>
       <Header />
       <main className="pt-20">
         <div className="container mx-auto px-4 py-20">

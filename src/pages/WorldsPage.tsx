@@ -14,7 +14,7 @@ const WorldsPage = () => {
         "/myworld/5.jpg"
       ],
       description: "Download my Minecraft Bedrock world with custom biomes, a secret waterfall packed with treasure, and a fully automatic villager breeder system. Expand, explore, and survive in one of the best community maps!",
-      downloadLink: "https://drive.google.com/file/d/1gvNtwwLO84du1fbGaVhDALW08GDgV7j1/view?usp=drivesdk",
+      downloadLink: "https://drive.google.com/file/d/14VjNN0O8LjYyJGohL6VnM371OfDt-M_x/view?usp=drivesdk",
       downloadText: "Download My World (.mctemplate)"
     },
     {

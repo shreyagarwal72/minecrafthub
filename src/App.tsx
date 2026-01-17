@@ -11,12 +11,14 @@ import DownloadsPage from "./pages/DownloadsPage";
 import PatchPage from "./pages/PatchPage";
 import FAQPage from "./pages/FAQPage";
 import NotFound from "./pages/NotFound";
+import MagneticCursor from "./components/MagneticCursor";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
+      <MagneticCursor />
       <Toaster />
       <Sonner />
       <BrowserRouter>

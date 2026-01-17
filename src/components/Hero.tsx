@@ -3,6 +3,13 @@ import { Link } from "react-router-dom";
 import heroImage from "@/assets/gaming-hero.jpg";
 
 const Hero = () => {
+  const scrollToShowcase = () => {
+    const showcase = document.getElementById("showcase");
+    if (showcase) {
+      showcase.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
@@ -11,14 +18,15 @@ const Hero = () => {
           src={heroImage}
           alt="Gaming Hero Background"
           className="w-full h-full object-cover opacity-30"
+          loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-gaming-bg/50 via-gaming-bg/70 to-gaming-bg"></div>
       </div>
 
-      {/* Floating Elements */}
-      <div className="absolute top-20 left-10 w-16 h-16 bg-primary/20 rounded-full animate-float"></div>
-      <div className="absolute top-40 right-20 w-8 h-8 bg-primary/30 rounded-full animate-float" style={{ animationDelay: "1s" }}></div>
-      <div className="absolute bottom-40 left-20 w-12 h-12 bg-primary/25 rounded-full animate-float" style={{ animationDelay: "2s" }}></div>
+      {/* Floating Elements - hidden on low-end devices */}
+      <div className="hidden sm:block absolute top-20 left-10 w-16 h-16 bg-primary/20 rounded-full animate-float"></div>
+      <div className="hidden sm:block absolute top-40 right-20 w-8 h-8 bg-primary/30 rounded-full animate-float" style={{ animationDelay: "1s" }}></div>
+      <div className="hidden sm:block absolute bottom-40 left-20 w-12 h-12 bg-primary/25 rounded-full animate-float" style={{ animationDelay: "2s" }}></div>
 
       {/* Content */}
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -27,22 +35,23 @@ const Hero = () => {
             Welcome to Nextup Studio!
           </h1>
           
-          <p className="text-xl md:text-2xl text-gaming-text-muted mb-4 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-lg sm:text-xl md:text-2xl text-gaming-text-muted mb-4 max-w-3xl mx-auto leading-relaxed">
             Your hub for Minecraft worlds, Techno Gamerz World downloads, 
             feature-rich Bedrock addons, and stunning shaders.
           </p>
           
-          <p className="text-lg text-gaming-text-muted mb-8 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-gaming-text-muted mb-8 max-w-2xl mx-auto">
             Designed for players seeking adventure, survival, and epic new visuals.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-scale-in">
-            <Button asChild className="btn-gaming text-lg px-8 py-4 animate-glow-pulse">
-              <Link to="#showcase">
-                Get Started
-              </Link>
+            <Button 
+              onClick={scrollToShowcase}
+              className="btn-gaming text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 animate-glow-pulse w-full sm:w-auto"
+            >
+              Get Started
             </Button>
-            <Button asChild className="btn-gaming-outline text-lg px-8 py-4">
+            <Button asChild className="btn-gaming-outline text-base sm:text-lg px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto">
               <Link to="/addons">
                 Discover Addons
               </Link>

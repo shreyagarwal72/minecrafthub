@@ -1,22 +1,87 @@
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone } from "lucide-react";
+import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import minecraftMainPreview from "@/assets/minecraft-main-preview-updated.jpg";
 
+interface VersionInfo {
+  version: string;
+  musicLink: string;
+  noMusicLink: string;
+  updateDate: string;
+}
+
 const DownloadsPage = () => {
+  const [versionInfo, setVersionInfo] = useState<VersionInfo>({
+    version: "1.21.132",
+    musicLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132-music.apk",
+    noMusicLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132.apk",
+    updateDate: new Date().toISOString(),
+  });
+  const [isChecking, setIsChecking] = useState(false);
+  const [lastChecked, setLastChecked] = useState<Date | null>(null);
+
+  const checkForUpdates = async () => {
+    setIsChecking(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("version-checker");
+      
+      if (error) {
+        console.error("Version check error:", error);
+        return;
+      }
+
+      if (data) {
+        setVersionInfo(data);
+        setLastChecked(new Date());
+        localStorage.setItem("mcVersionInfo", JSON.stringify(data));
+        localStorage.setItem("mcVersionLastChecked", new Date().toISOString());
+      }
+    } catch (error) {
+      console.error("Failed to check for updates:", error);
+    } finally {
+      setIsChecking(false);
+    }
+  };
+
+  useEffect(() => {
+    // Load cached version info
+    const cached = localStorage.getItem("mcVersionInfo");
+    const lastCheck = localStorage.getItem("mcVersionLastChecked");
+    
+    if (cached) {
+      try {
+        setVersionInfo(JSON.parse(cached));
+      } catch (e) {
+        console.error("Failed to parse cached version:", e);
+      }
+    }
+    
+    if (lastCheck) {
+      setLastChecked(new Date(lastCheck));
+    }
+
+    // Auto-check if last check was more than 6 hours ago
+    const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000);
+    if (!lastCheck || new Date(lastCheck) < sixHoursAgo) {
+      checkForUpdates();
+    }
+  }, []);
+
   const mainVersions = [
     {
       title: "Minecraft Music Version",
       description: "Complete Minecraft experience with all original soundtracks and music. Full-featured version for the best gaming experience.",
-      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132-music.apk",
+      downloadLink: versionInfo.musicLink,
       icon: Music,
       primary: true
     },
     {
       title: "Minecraft No Music Version", 
       description: "Lightweight version without music files. Perfect for devices with limited storage space while maintaining full gameplay.",
-      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132.apk",
+      downloadLink: versionInfo.noMusicLink,
       icon: VolumeX,
       primary: false
     }
@@ -40,7 +105,7 @@ const DownloadsPage = () => {
     },
     {
       icon: CheckCircle,
-      title: "1.21.132 Patch",
+      title: `${versionInfo.version} Patch`,
       description: "Latest features, multiplayer, crossplay, bugfixes—official build."
     },
     {
@@ -62,6 +127,18 @@ const DownloadsPage = () => {
     "No root or special permissions required for installation."
   ];
 
+  const formatLastChecked = () => {
+    if (!lastChecked) return "Never";
+    const diff = Date.now() - lastChecked.getTime();
+    const minutes = Math.floor(diff / 60000);
+    const hours = Math.floor(diff / 3600000);
+    
+    if (minutes < 1) return "Just now";
+    if (minutes < 60) return `${minutes} min ago`;
+    if (hours < 24) return `${hours} hours ago`;
+    return lastChecked.toLocaleDateString();
+  };
+
   return (
     <div className="min-h-screen bg-gaming-bg">
       <Header />
@@ -72,9 +149,31 @@ const DownloadsPage = () => {
             <h1 className="text-4xl md:text-5xl font-bold text-gaming-text mb-4">
               <span className="text-glow">Minecraft Original Full Version</span>
             </h1>
-            <p className="text-2xl font-bold text-primary mb-6">
-              Minecraft Version 1.21.132
+            <p className="text-2xl font-bold text-primary mb-4">
+              Minecraft Version {versionInfo.version}
             </p>
+
+            {/* Version Checker */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+              <div className="flex items-center gap-2 text-gaming-text-muted text-sm">
+                <Clock className="w-4 h-4" />
+                <span>Last checked: {formatLastChecked()}</span>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={checkForUpdates}
+                disabled={isChecking}
+                className="flex items-center gap-2"
+              >
+                {isChecking ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <RefreshCw className="w-4 h-4" />
+                )}
+                {isChecking ? "Checking..." : "Check for Updates"}
+              </Button>
+            </div>
             
             {/* Preview Images */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto mb-8">
@@ -95,7 +194,7 @@ const DownloadsPage = () => {
             </div>
             
             <p className="text-xl text-gaming-text-muted max-w-3xl mx-auto mb-8">
-              <strong>Download the latest, safest, and fastest Minecraft Bedrock 1.21.124:</strong><br />
+              <strong>Download the latest, safest, and fastest Minecraft Bedrock {versionInfo.version}:</strong><br />
               Choose with music or a super-light No Music edition, both clean and tested.
             </p>
 

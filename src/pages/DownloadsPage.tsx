@@ -204,6 +204,7 @@ const DownloadsPage = () => {
                 <Button 
                   key={index}
                   asChild 
+                  data-magnetic
                   className={version.primary ? "btn-gaming text-lg px-8 py-4" : "btn-gaming-outline text-lg px-8 py-4"}
                 >
                   <a 
@@ -211,6 +212,7 @@ const DownloadsPage = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     download
+                    className="flex items-center"
                   >
                     <version.icon className="w-5 h-5 mr-2" />
                     {version.title}
@@ -229,12 +231,14 @@ const DownloadsPage = () => {
               {features.map((feature, index) => (
                 <div 
                   key={index}
-                  className="flex items-start space-x-4 p-4 rounded-lg bg-gaming-elevated/50 hover:bg-gaming-elevated transition-colors"
+                  className="feature-card flex items-start space-x-4 p-4 rounded-xl bg-gaming-elevated/50 hover:bg-gaming-elevated border border-transparent hover:border-primary/20"
                 >
-                  <feature.icon className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                  <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                    <feature.icon className="w-6 h-6 text-primary flex-shrink-0" />
+                  </div>
                   <div>
-                    <h3 className="font-bold text-gaming-text mb-2">{feature.title}</h3>
-                    <p className="text-gaming-text-muted text-sm">{feature.description}</p>
+                    <h3 className="font-bold text-gaming-text mb-1">{feature.title}</h3>
+                    <p className="text-gaming-text-muted text-sm leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
               ))}

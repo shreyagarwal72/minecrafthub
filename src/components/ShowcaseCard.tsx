@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 interface ShowcaseCardProps {
   title: string;
@@ -25,9 +26,11 @@ const ShowcaseCard = ({
         <img
           src={image}
           alt={title}
-          className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+          className="w-full h-48 object-cover transition-all duration-500 group-hover:scale-110 group-hover:brightness-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gaming-bg/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-gaming-bg/80 via-gaming-bg/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
+        {/* Shine effect */}
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
       </div>
 
       {/* Content */}
@@ -36,13 +39,18 @@ const ShowcaseCard = ({
           {title}
         </h3>
         
-        <p className="text-gaming-text-muted leading-relaxed">
+        <p className="text-gaming-text-muted leading-relaxed line-clamp-2">
           {description}
         </p>
 
-        <Button asChild className="btn-gaming-outline w-full group-hover:scale-105 transition-transform duration-300">
-          <Link to={href}>
+        <Button 
+          asChild 
+          data-magnetic
+          className="btn-gaming-outline w-full group/btn"
+        >
+          <Link to={href} className="flex items-center justify-center gap-2">
             {buttonText}
+            <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" />
           </Link>
         </Button>
       </div>

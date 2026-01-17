@@ -112,6 +112,7 @@ const Header = () => {
             <div className="hidden lg:block">
               <Button 
                 onClick={scrollToShowcase}
+                data-magnetic
                 className="btn-gaming"
               >
                 Get Started

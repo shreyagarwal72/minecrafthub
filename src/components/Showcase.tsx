@@ -34,15 +34,15 @@ const Showcase = () => {
     {
       id: "downloads",
       title: "Minecraft Original Full Version",
-      description: "Download the official Minecraft Bedrock 1.21.101 (Android/PC/MCPE). No ads, direct and safe from Nextup Studio.",
+      description: "Download the official Minecraft Bedrock 1.21.132 (Android/PC/MCPE). No ads, direct and safe from Nextup Studio.",
       image: minecraftOfficialImage,
       buttonText: "Download Minecraft",
       href: "/downloads"
     },
     {
       id: "patch",
-      title: "Minecraft Patched 1.21.124",
-      description: "Official Minecraft 1.21.124 patched version. Pure, original experience with enhanced compatibility and stability.",
+      title: "Minecraft Patched 1.21.132",
+      description: "Official Minecraft 1.21.132 patched version. Pure, original experience with enhanced compatibility and stability.",
       image: officialPatchImage,
       buttonText: "Download Patch",
       href: "/patch"

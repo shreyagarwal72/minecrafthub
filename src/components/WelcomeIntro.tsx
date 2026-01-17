@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense, lazy } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, ChevronLeft } from "lucide-react";
@@ -8,6 +8,9 @@ import introWelcome from "@/assets/intro-welcome.jpg";
 import introWorlds from "@/assets/intro-worlds.jpg";
 import introAddons from "@/assets/intro-addons.jpg";
 import introShaders from "@/assets/intro-shaders.jpg";
+
+// Lazy load the particle background for performance
+const ParticleBackground = lazy(() => import("@/components/ParticleBackground"));
 
 interface WelcomeIntroProps {
   isOpen: boolean;
@@ -102,9 +105,14 @@ const WelcomeIntro = ({ isOpen, onClose, isManualOpen = false }: WelcomeIntroPro
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleComplete()}>
       <DialogContent className="sm:max-w-lg p-0 overflow-hidden bg-gaming-surface border-border shadow-2xl">
+        {/* Particle Background */}
+        <Suspense fallback={null}>
+          <ParticleBackground className="z-0 opacity-40" />
+        </Suspense>
+        
         {/* 3D Card Container */}
         <div 
-          className="relative"
+          className="relative z-10"
           style={{ perspective: "1200px" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}

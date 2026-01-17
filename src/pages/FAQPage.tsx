@@ -116,9 +116,16 @@ const FAQPage = () => {
       }
     } catch (error) {
       console.error("Chat error:", error);
+      
+      // Check if it's a network/connection error
+      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      const isNetworkError = errorMessage.includes("Failed to fetch") || errorMessage.includes("NetworkError");
+      
       toast({
-        title: "Error",
-        description: "Failed to get response. Please try again.",
+        title: isNetworkError ? "Connection Error" : "Error",
+        description: isNetworkError 
+          ? "Unable to connect to AI service. Please check your connection and try again." 
+          : "Failed to get response. Please try again.",
         variant: "destructive",
       });
       

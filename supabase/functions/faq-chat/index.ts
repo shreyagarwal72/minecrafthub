@@ -44,14 +44,14 @@ CONTENT CATEGORIES:
 - Performance optimized for various devices
 
 4. MODIFIED VERSIONS:
-- Official Minecraft Patched version 1.21.124
+- Official Minecraft Patched version 1.21.132
 - Pure, original experience with enhanced compatibility
 - Latest version with all features and bug fixes
 - All modifications are safe and tested
 
 5. DOWNLOADS:
 - Direct download links for all content
-- Current Minecraft version: 1.21.124 (Latest Release)
+- Current Minecraft version: 1.21.132 (Latest Release)
 - Official patched version available
 - Step-by-step installation guides
 - Regular updates and new content

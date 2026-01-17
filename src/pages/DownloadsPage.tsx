@@ -9,14 +9,14 @@ const DownloadsPage = () => {
     {
       title: "Minecraft Music Version",
       description: "Complete Minecraft experience with all original soundtracks and music. Full-featured version for the best gaming experience.",
-      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-124.apk",
+      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132-music.apk",
       icon: Music,
       primary: true
     },
     {
       title: "Minecraft No Music Version", 
       description: "Lightweight version without music files. Perfect for devices with limited storage space while maintaining full gameplay.",
-      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-124.apk",
+      downloadLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132.apk",
       icon: VolumeX,
       primary: false
     }
@@ -40,7 +40,7 @@ const DownloadsPage = () => {
     },
     {
       icon: CheckCircle,
-      title: "1.21.124 Patch",
+      title: "1.21.132 Patch",
       description: "Latest features, multiplayer, crossplay, bugfixes—official build."
     },
     {
@@ -73,7 +73,7 @@ const DownloadsPage = () => {
               <span className="text-glow">Minecraft Original Full Version</span>
             </h1>
             <p className="text-2xl font-bold text-primary mb-6">
-              Minecraft Version 1.21.124
+              Minecraft Version 1.21.132
             </p>
             
             {/* Preview Images */}

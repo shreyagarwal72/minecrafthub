@@ -2,9 +2,15 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2, Pickaxe, Gem, Box } from "lucide-react";
+import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2, Pickaxe, Gem, Box, Sparkles, ChevronDown } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import minecraftMainPreview from "@/assets/minecraft-main-preview-updated.jpg";
+
+interface ChangelogItem {
+  title: string;
+  items: string[];
+}
 
 interface VersionInfo {
   version: string;
@@ -12,6 +18,7 @@ interface VersionInfo {
   noMusicLink: string;
   updateDate: string;
   pageUrl: string;
+  changelog: ChangelogItem[];
 }
 
 const DownloadsPage = () => {
@@ -21,6 +28,10 @@ const DownloadsPage = () => {
     noMusicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/2/",
     updateDate: new Date().toISOString(),
     pageUrl: "https://mcpelife.com/minecraft-pe-1-21-132/",
+    changelog: [
+      { title: "New Features", items: ["New blocks and items", "Performance improvements", "Bug fixes"] },
+      { title: "Technical Updates", items: ["Improved rendering", "Better chunk loading"] }
+    ]
   });
   const [isChecking, setIsChecking] = useState(false);
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
@@ -229,6 +240,76 @@ const DownloadsPage = () => {
               <p className="text-sm text-gaming-text-muted">
                 Source: <a href={versionInfo.pageUrl} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">mcpelife.com</a>
               </p>
+            </div>
+          </section>
+
+          {/* Changelog Section */}
+          <section className="card-gaming p-8 mb-12">
+            <h2 className="text-2xl font-bold text-primary mb-6 flex items-center gap-3">
+              <Sparkles className="w-6 h-6" />
+              What's New in {versionInfo.version}
+            </h2>
+            
+            <Accordion type="single" collapsible className="w-full space-y-3">
+              {versionInfo.changelog && versionInfo.changelog.length > 0 ? (
+                versionInfo.changelog.map((section, index) => (
+                  <AccordionItem 
+                    key={index} 
+                    value={`item-${index}`}
+                    className="border border-primary/20 rounded-xl overflow-hidden bg-gaming-elevated/30 hover:bg-gaming-elevated/50 transition-colors"
+                  >
+                    <AccordionTrigger className="px-6 py-4 hover:no-underline group">
+                      <div className="flex items-center gap-3">
+                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                        <span className="text-gaming-text font-semibold group-hover:text-primary transition-colors">
+                          {section.title}
+                        </span>
+                        <span className="text-xs text-gaming-text-muted bg-primary/10 px-2 py-1 rounded-full">
+                          {section.items.length} items
+                        </span>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="px-6 pb-4">
+                      <ul className="space-y-2">
+                        {section.items.map((item, itemIndex) => (
+                          <li 
+                            key={itemIndex}
+                            className="flex items-start gap-3 text-gaming-text-muted text-sm"
+                          >
+                            <span className="text-primary mt-1">✦</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))
+              ) : (
+                <div className="text-center py-8 text-gaming-text-muted">
+                  <Sparkles className="w-8 h-8 mx-auto mb-3 opacity-50" />
+                  <p>Changelog information will appear after checking for updates</p>
+                </div>
+              )}
+            </Accordion>
+
+            <div className="mt-6 pt-4 border-t border-primary/10 flex items-center justify-between">
+              <p className="text-xs text-gaming-text-muted">
+                Changelog data fetched from mcpelife.com
+              </p>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={checkForUpdates}
+                disabled={isChecking}
+                className="text-primary hover:text-primary/80"
+              >
+                {isChecking ? (
+                  <Loader2 className="w-4 h-4 animate-spin mr-2" />
+                ) : (
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                )}
+                Refresh
+              </Button>
             </div>
           </section>
 

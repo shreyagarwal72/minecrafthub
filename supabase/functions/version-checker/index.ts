@@ -5,20 +5,34 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const MCPE_PLANET_URL = "https://mcpe-planet.com/downloads/";
+const MCPE_LIFE_URL = "https://mcpelife.com/";
 
-async function fetchLatestVersion(): Promise<{
+interface VersionInfo {
   version: string;
   musicLink: string;
   noMusicLink: string;
   updateDate: string;
+  pageUrl: string;
+}
+
+interface BetaVersionInfo {
+  version: string;
+  downloadLink: string;
+  updateDate: string;
+  pageUrl: string;
+}
+
+async function fetchLatestVersions(): Promise<{
+  release: VersionInfo;
+  beta: BetaVersionInfo;
 }> {
   try {
-    console.log("Fetching latest Minecraft version from mcpe-planet.com...");
+    console.log("Fetching latest Minecraft versions from mcpelife.com...");
     
-    const response = await fetch(MCPE_PLANET_URL, {
+    const response = await fetch(MCPE_LIFE_URL, {
       headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
       },
     });
 
@@ -28,35 +42,63 @@ async function fetchLatestVersion(): Promise<{
 
     const html = await response.text();
     
-    // Parse for latest release version (look for pattern like "MCPE 1.21.132")
-    const releaseMatch = html.match(/MCPE\s+(\d+\.\d+\.\d+)\s*\([^)]*Latest\s+Rele[a]?se/i);
+    // Find release version (1.21.xxx pattern - stable releases)
+    const releaseMatch = html.match(/minecraft-pe-(1\.21\.\d+)/i);
+    // Find beta version (1.26.xxx or 1.25.xxx pattern - beta/preview)
+    const betaMatch = html.match(/minecraft-pe-(1\.2[56]\.\d+\.\d+)/i);
     
-    let version = "1.21.132"; // fallback
+    let releaseVersion = "1.21.132";
+    let betaVersion = "1.26.10.20";
+    
     if (releaseMatch && releaseMatch[1]) {
-      version = releaseMatch[1];
+      releaseVersion = releaseMatch[1];
+    }
+    
+    if (betaMatch && betaMatch[1]) {
+      betaVersion = betaMatch[1];
     }
 
-    // Construct download links based on version
-    const versionSlug = version.replace(/\./g, "-");
-    const musicLink = `https://mcpe-planet.com/wp-content/uploads/version/minecraft-${versionSlug}-music.apk`;
-    const noMusicLink = `https://mcpe-planet.com/wp-content/uploads/version/minecraft-${versionSlug}.apk`;
+    console.log(`Found release: ${releaseVersion}, beta: ${betaVersion}`);
 
-    console.log(`Found latest version: ${version}`);
+    // Construct URLs
+    const releaseSlug = releaseVersion.replace(/\./g, "-");
+    const betaSlug = betaVersion.replace(/\./g, "-");
+    
+    const releasePageUrl = `https://mcpelife.com/minecraft-pe-${releaseSlug}/`;
+    const betaPageUrl = `https://mcpelife.com/minecraft-pe-${betaSlug}/`;
 
     return {
-      version,
-      musicLink,
-      noMusicLink,
-      updateDate: new Date().toISOString(),
+      release: {
+        version: releaseVersion,
+        musicLink: `${releasePageUrl}download/1/`,
+        noMusicLink: `${releasePageUrl}download/2/`,
+        updateDate: new Date().toISOString(),
+        pageUrl: releasePageUrl,
+      },
+      beta: {
+        version: betaVersion,
+        downloadLink: `${betaPageUrl}download/1/`,
+        updateDate: new Date().toISOString(),
+        pageUrl: betaPageUrl,
+      },
     };
   } catch (error) {
-    console.error("Error fetching version:", error);
-    // Return current known version as fallback
+    console.error("Error fetching versions:", error);
+    // Return fallback versions
     return {
-      version: "1.21.132",
-      musicLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132-music.apk",
-      noMusicLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132.apk",
-      updateDate: new Date().toISOString(),
+      release: {
+        version: "1.21.132",
+        musicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/1/",
+        noMusicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/2/",
+        updateDate: new Date().toISOString(),
+        pageUrl: "https://mcpelife.com/minecraft-pe-1-21-132/",
+      },
+      beta: {
+        version: "1.26.10.20",
+        downloadLink: "https://mcpelife.com/minecraft-pe-1-26-10-20/download/1/",
+        updateDate: new Date().toISOString(),
+        pageUrl: "https://mcpelife.com/minecraft-pe-1-26-10-20/",
+      },
     };
   }
 }
@@ -67,9 +109,9 @@ serve(async (req) => {
   }
 
   try {
-    const versionInfo = await fetchLatestVersion();
+    const versions = await fetchLatestVersions();
 
-    return new Response(JSON.stringify(versionInfo), {
+    return new Response(JSON.stringify(versions), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
@@ -77,10 +119,19 @@ serve(async (req) => {
     return new Response(
       JSON.stringify({ 
         error: error instanceof Error ? error.message : "Unknown error",
-        version: "1.21.132",
-        musicLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132-music.apk",
-        noMusicLink: "https://mcpe-planet.com/wp-content/uploads/version/minecraft-1-21-132.apk",
-        updateDate: new Date().toISOString(),
+        release: {
+          version: "1.21.132",
+          musicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/1/",
+          noMusicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/2/",
+          updateDate: new Date().toISOString(),
+          pageUrl: "https://mcpelife.com/minecraft-pe-1-21-132/",
+        },
+        beta: {
+          version: "1.26.10.20",
+          downloadLink: "https://mcpelife.com/minecraft-pe-1-26-10-20/download/1/",
+          updateDate: new Date().toISOString(),
+          pageUrl: "https://mcpelife.com/minecraft-pe-1-26-10-20/",
+        },
       }),
       {
         status: 200,

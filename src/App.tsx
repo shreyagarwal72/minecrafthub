@@ -8,7 +8,7 @@ import WorldsPage from "./pages/WorldsPage";
 import AddonsPage from "./pages/AddonsPage";
 import ShadersPage from "./pages/ShadersPage";
 import DownloadsPage from "./pages/DownloadsPage";
-import PatchPage from "./pages/PatchPage";
+import BetaPage from "./pages/BetaPage";
 import FAQPage from "./pages/FAQPage";
 import NotFound from "./pages/NotFound";
 import MagneticCursor from "./components/MagneticCursor";
@@ -28,7 +28,9 @@ const App = () => (
           <Route path="/addons" element={<AddonsPage />} />
           <Route path="/shaders" element={<ShadersPage />} />
           <Route path="/downloads" element={<DownloadsPage />} />
-          <Route path="/patch" element={<PatchPage />} />
+          <Route path="/beta" element={<BetaPage />} />
+          {/* Legacy route redirect */}
+          <Route path="/patch" element={<BetaPage />} />
           <Route path="/faq" element={<FAQPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

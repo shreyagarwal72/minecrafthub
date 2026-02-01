@@ -1,10 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2, Pickaxe, Gem, Box, Sparkles, ChevronDown } from "lucide-react";
+import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2, Pickaxe, Gem, Box, Sparkles, Bell } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/hooks/use-toast";
 import minecraftMainPreview from "@/assets/minecraft-main-preview-updated.jpg";
 
 interface ChangelogItem {
@@ -21,7 +23,14 @@ interface VersionInfo {
   changelog: ChangelogItem[];
 }
 
+interface DownloadState {
+  isDownloading: boolean;
+  progress: number;
+  fileName: string;
+}
+
 const DownloadsPage = () => {
+  const { toast } = useToast();
   const [versionInfo, setVersionInfo] = useState<VersionInfo>({
     version: "1.21.132",
     musicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/1/",
@@ -35,6 +44,9 @@ const DownloadsPage = () => {
   });
   const [isChecking, setIsChecking] = useState(false);
   const [lastChecked, setLastChecked] = useState<Date | null>(null);
+  const [hasNewVersion, setHasNewVersion] = useState(false);
+  const [lastSeenVersion, setLastSeenVersion] = useState<string | null>(null);
+  const [downloadStates, setDownloadStates] = useState<Record<string, DownloadState>>({});
 
   const checkForUpdates = async () => {
     setIsChecking(true);
@@ -43,10 +55,27 @@ const DownloadsPage = () => {
       
       if (error) {
         console.error("Version check error:", error);
+        toast({
+          title: "Update check failed",
+          description: "Could not fetch latest version info",
+          variant: "destructive",
+        });
         return;
       }
 
       if (data?.release) {
+        const newVersion = data.release.version;
+        const previousSeenVersion = localStorage.getItem("mcLastSeenVersion");
+        
+        // Check if this is a new version
+        if (previousSeenVersion && previousSeenVersion !== newVersion) {
+          setHasNewVersion(true);
+          toast({
+            title: "New version available!",
+            description: `Minecraft ${newVersion} is now available`,
+          });
+        }
+        
         setVersionInfo(data.release);
         setLastChecked(new Date());
         localStorage.setItem("mcVersionInfo", JSON.stringify(data.release));
@@ -59,13 +88,67 @@ const DownloadsPage = () => {
     }
   };
 
+  const markVersionAsSeen = useCallback(() => {
+    localStorage.setItem("mcLastSeenVersion", versionInfo.version);
+    setLastSeenVersion(versionInfo.version);
+    setHasNewVersion(false);
+  }, [versionInfo.version]);
+
+  const handleDownload = useCallback((downloadLink: string, fileName: string) => {
+    // Simulate download progress for UX (actual download happens via browser)
+    setDownloadStates(prev => ({
+      ...prev,
+      [fileName]: { isDownloading: true, progress: 0, fileName }
+    }));
+
+    // Simulate progress animation
+    let progress = 0;
+    const interval = setInterval(() => {
+      progress += Math.random() * 15 + 5;
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        
+        // Open download link
+        window.open(downloadLink, "_blank");
+        
+        // Mark version as seen when user downloads
+        markVersionAsSeen();
+        
+        // Reset after delay
+        setTimeout(() => {
+          setDownloadStates(prev => ({
+            ...prev,
+            [fileName]: { isDownloading: false, progress: 0, fileName }
+          }));
+        }, 1500);
+      }
+      
+      setDownloadStates(prev => ({
+        ...prev,
+        [fileName]: { ...prev[fileName], progress }
+      }));
+    }, 150);
+  }, [markVersionAsSeen]);
+
   useEffect(() => {
     const cached = localStorage.getItem("mcVersionInfo");
     const lastCheck = localStorage.getItem("mcVersionLastChecked");
+    const previousSeenVersion = localStorage.getItem("mcLastSeenVersion");
+    
+    if (previousSeenVersion) {
+      setLastSeenVersion(previousSeenVersion);
+    }
     
     if (cached) {
       try {
-        setVersionInfo(JSON.parse(cached));
+        const parsedVersion = JSON.parse(cached);
+        setVersionInfo(parsedVersion);
+        
+        // Check if current cached version is different from last seen
+        if (previousSeenVersion && previousSeenVersion !== parsedVersion.version) {
+          setHasNewVersion(true);
+        }
       } catch (e) {
         console.error("Failed to parse cached version:", e);
       }
@@ -151,6 +234,20 @@ const DownloadsPage = () => {
             </div>
 
             <div className="relative z-10">
+              {/* New Version Badge */}
+              {hasNewVersion && (
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/20 border border-amber-500/50 text-amber-400 mb-4 animate-pulse">
+                  <Bell className="w-4 h-4" />
+                  <span className="text-sm font-medium">New version available!</span>
+                  <button 
+                    onClick={markVersionAsSeen}
+                    className="text-xs underline hover:no-underline ml-2"
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              )}
+              
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary mb-6">
                 <Box className="w-4 h-4" />
                 <span className="text-sm font-medium">Official Release</span>
@@ -158,10 +255,21 @@ const DownloadsPage = () => {
 
               <h1 className="text-4xl md:text-6xl font-bold text-gaming-text mb-4 minecraft-title">
                 <span className="text-glow">Minecraft Bedrock</span>
+                {hasNewVersion && (
+                  <span className="relative ml-2">
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full animate-ping" />
+                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-amber-500 rounded-full" />
+                  </span>
+                )}
               </h1>
               
-              <p className="text-3xl font-bold text-primary mb-4">
+              <p className="text-3xl font-bold text-primary mb-4 flex items-center justify-center gap-2">
                 Version {versionInfo.version}
+                {lastSeenVersion && lastSeenVersion !== versionInfo.version && (
+                  <span className="text-xs bg-amber-500/20 text-amber-400 px-2 py-1 rounded-full">
+                    Updated from {lastSeenVersion}
+                  </span>
+                )}
               </p>
 
               {/* Version Checker */}
@@ -199,42 +307,69 @@ const DownloadsPage = () => {
 
               {/* Download Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto mb-8">
-                {mainVersions.map((version, index) => (
-                  <div 
-                    key={index}
-                    className={`card-gaming p-6 hover:scale-[1.03] transition-all duration-300 minecraft-download-card ${
-                      version.primary ? 'border-primary/50' : ''
-                    }`}
-                  >
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className={`p-3 rounded-xl ${version.primary ? 'bg-primary/20' : 'bg-muted/50'}`}>
-                        <version.icon className={`w-6 h-6 ${version.primary ? 'text-primary' : 'text-muted-foreground'}`} />
+                {mainVersions.map((version, index) => {
+                  const downloadState = downloadStates[version.title];
+                  const isDownloading = downloadState?.isDownloading;
+                  const progress = downloadState?.progress || 0;
+                  
+                  return (
+                    <div 
+                      key={index}
+                      className={`card-gaming p-6 hover:scale-[1.03] transition-all duration-300 minecraft-download-card ${
+                        version.primary ? 'border-primary/50' : ''
+                      }`}
+                    >
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className={`p-3 rounded-xl ${version.primary ? 'bg-primary/20' : 'bg-muted/50'}`}>
+                          <version.icon className={`w-6 h-6 ${version.primary ? 'text-primary' : 'text-muted-foreground'}`} />
+                        </div>
+                        <div className="text-left">
+                          <h3 className="font-bold text-gaming-text">{version.title}</h3>
+                          <p className="text-xs text-gaming-text-muted">{version.subtitle}</p>
+                        </div>
                       </div>
-                      <div className="text-left">
-                        <h3 className="font-bold text-gaming-text">{version.title}</h3>
-                        <p className="text-xs text-gaming-text-muted">{version.subtitle}</p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-gaming-text-muted mb-4 text-left">{version.description}</p>
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs text-gaming-text-muted">{version.size}</span>
-                      <Button 
-                        asChild 
-                        size="sm"
-                        className={version.primary ? "btn-gaming" : "btn-gaming-outline"}
-                      >
-                        <a 
-                          href={version.downloadLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                      <p className="text-sm text-gaming-text-muted mb-4 text-left">{version.description}</p>
+                      
+                      {/* Download Progress Bar */}
+                      {isDownloading && (
+                        <div className="mb-4 space-y-2">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="text-primary">Preparing download...</span>
+                            <span className="text-gaming-text-muted">{Math.round(progress)}%</span>
+                          </div>
+                          <Progress value={progress} className="h-2" />
+                        </div>
+                      )}
+                      
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gaming-text-muted">{version.size}</span>
+                        <Button 
+                          size="sm"
+                          disabled={isDownloading}
+                          onClick={() => handleDownload(version.downloadLink, version.title)}
+                          className={version.primary ? "btn-gaming" : "btn-gaming-outline"}
                         >
-                          <Download className="w-4 h-4 mr-2" />
-                          Download
-                        </a>
-                      </Button>
+                          {isDownloading ? (
+                            <>
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              Downloading...
+                            </>
+                          ) : progress === 100 ? (
+                            <>
+                              <CheckCircle className="w-4 h-4 mr-2" />
+                              Complete!
+                            </>
+                          ) : (
+                            <>
+                              <Download className="w-4 h-4 mr-2" />
+                              Download
+                            </>
+                          )}
+                        </Button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
 
               <p className="text-sm text-gaming-text-muted">

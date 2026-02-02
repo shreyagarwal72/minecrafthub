@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
-import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2, Pickaxe, Gem, Box, Sparkles, Bell } from "lucide-react";
+import { Download, Music, VolumeX, CheckCircle, Shield, Zap, Users, Smartphone, RefreshCw, Clock, Loader2, Pickaxe, Gem, Box, Sparkles, Bell, ChevronRight, Calendar, Package } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
@@ -259,6 +259,48 @@ const DownloadsPage = () => {
     { icon: Users, title: "Community Trusted", description: "Downloaded by thousands of players worldwide" }
   ];
 
+  // Major Minecraft versions from 1.18 to latest
+  const majorVersions = [
+    {
+      version: "1.21",
+      codename: "Tricky Trials",
+      releaseDate: "June 2024",
+      description: "Adds Trial Chambers, the Breeze mob, new copper and tuff blocks, mace weapon, and ominous events.",
+      highlights: ["Trial Chambers", "Breeze Mob", "Mace Weapon", "Ominous Trials"],
+      downloadLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/1/",
+      color: "from-emerald-500 to-teal-600"
+    },
+    {
+      version: "1.20",
+      codename: "Trails & Tales",
+      releaseDate: "June 2023",
+      description: "Cherry Blossom biomes, archaeology, armor trims, new bamboo and hanging signs, camels, and sniffers.",
+      highlights: ["Cherry Blossoms", "Archaeology", "Armor Trims", "Camels"],
+      downloadLink: "https://mcpelife.com/minecraft-pe-1-20-81/download/1/",
+      color: "from-pink-500 to-rose-600"
+    },
+    {
+      version: "1.19",
+      codename: "The Wild Update",
+      releaseDate: "June 2022",
+      description: "Deep Dark biome, Ancient Cities, Warden, Mangrove Swamps, Frogs, Allays, and mud blocks.",
+      highlights: ["Deep Dark", "Warden", "Mangrove Swamp", "Allays"],
+      downloadLink: "https://mcpelife.com/minecraft-pe-1-19-83/download/1/",
+      color: "from-cyan-500 to-blue-600"
+    },
+    {
+      version: "1.18",
+      codename: "Caves & Cliffs Part 2",
+      releaseDate: "November 2021",
+      description: "Massive world generation overhaul with new mountain and cave biomes, increased world height and depth.",
+      highlights: ["New Caves", "Mountain Biomes", "World Height", "Lush Caves"],
+      downloadLink: "https://mcpelife.com/minecraft-pe-1-18-33/download/1/",
+      color: "from-amber-500 to-orange-600"
+    }
+  ];
+
+  const [hoveredVersion, setHoveredVersion] = useState<string | null>(null);
+
   const formatLastChecked = () => {
     if (!lastChecked) return "Never";
     const diff = Date.now() - lastChecked.getTime();
@@ -450,24 +492,24 @@ const DownloadsPage = () => {
               What's New in {versionInfo.version}
             </h2>
             
-            <Accordion type="single" collapsible className="w-full space-y-3">
+            <Accordion type="single" collapsible className="w-full space-y-3" defaultValue="">
               {versionInfo.changelog && versionInfo.changelog.length > 0 ? (
                 versionInfo.changelog.map((section, index) => (
                   <AccordionItem 
                     key={index} 
                     value={`item-${index}`}
-                    className="border border-primary/20 rounded-xl overflow-hidden bg-gaming-elevated/30 hover:bg-gaming-elevated/50 transition-colors"
+                    className="border border-primary/20 rounded-xl bg-gaming-elevated/30 hover:bg-gaming-elevated/50 transition-colors data-[state=open]:bg-gaming-elevated"
                   >
-                    <AccordionTrigger className="px-6 py-4 hover:no-underline group">
-                      <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <AccordionTrigger className="px-6 py-4 hover:no-underline group [&>svg]:text-primary">
+                      <span className="flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                         <span className="text-gaming-text font-semibold group-hover:text-primary transition-colors">
                           {section.title}
                         </span>
                         <span className="text-xs text-gaming-text-muted bg-primary/10 px-2 py-1 rounded-full">
                           {section.items.length} items
                         </span>
-                      </div>
+                      </span>
                     </AccordionTrigger>
                     <AccordionContent className="px-6 pb-4">
                       <ul className="space-y-2">
@@ -510,6 +552,107 @@ const DownloadsPage = () => {
                 )}
                 Refresh
               </Button>
+            </div>
+          </section>
+
+          {/* Major Versions Archive */}
+          <section className="card-gaming p-8 mb-12 overflow-hidden">
+            <h2 className="text-2xl font-bold text-primary mb-2 flex items-center gap-3">
+              <Package className="w-6 h-6" />
+              Minecraft Version Archive
+            </h2>
+            <p className="text-gaming-text-muted mb-8">
+              Download any major Minecraft Bedrock version from 1.18 to the latest release
+            </p>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {majorVersions.map((version, index) => (
+                <div
+                  key={version.version}
+                  className={`group relative overflow-hidden rounded-2xl border border-primary/20 bg-gaming-elevated/30 transition-all duration-500 hover:scale-[1.02] hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 cursor-pointer`}
+                  style={{
+                    animationDelay: `${index * 100}ms`,
+                  }}
+                  onMouseEnter={() => setHoveredVersion(version.version)}
+                  onMouseLeave={() => setHoveredVersion(null)}
+                >
+                  {/* Gradient Background */}
+                  <div className={`absolute inset-0 bg-gradient-to-br ${version.color} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                  
+                  {/* Animated Border Glow */}
+                  <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${version.color} opacity-0 group-hover:opacity-20 blur-xl transition-all duration-500 -z-10`} />
+                  
+                  <div className="relative p-6">
+                    {/* Header */}
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <div className="flex items-center gap-3 mb-1">
+                          <span className={`text-3xl font-bold bg-gradient-to-r ${version.color} bg-clip-text text-transparent`}>
+                            {version.version}
+                          </span>
+                          {index === 0 && (
+                            <span className="px-2 py-0.5 text-xs font-medium bg-primary/20 text-primary rounded-full animate-pulse">
+                              Latest
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-lg font-medium text-gaming-text">{version.codename}</p>
+                      </div>
+                      <div className="flex items-center gap-2 text-gaming-text-muted text-sm">
+                        <Calendar className="w-4 h-4" />
+                        <span>{version.releaseDate}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Description */}
+                    <p className="text-gaming-text-muted text-sm mb-4 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+                      {version.description}
+                    </p>
+                    
+                    {/* Highlights */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {version.highlights.map((highlight, hIndex) => (
+                        <span
+                          key={hIndex}
+                          className={`px-3 py-1 text-xs rounded-full bg-gradient-to-r ${version.color} bg-opacity-10 text-gaming-text border border-primary/10 transition-all duration-300 group-hover:border-primary/30`}
+                          style={{
+                            transitionDelay: `${hIndex * 50}ms`,
+                          }}
+                        >
+                          {highlight}
+                        </span>
+                      ))}
+                    </div>
+                    
+                    {/* Download Button */}
+                    <Button
+                      onClick={() => handleDownload(version.downloadLink, `MC-${version.version}`)}
+                      disabled={downloadStates[`MC-${version.version}`]?.isDownloading}
+                      className={`w-full bg-gradient-to-r ${version.color} hover:opacity-90 text-white border-0 group/btn transition-all duration-300`}
+                    >
+                      {downloadStates[`MC-${version.version}`]?.isDownloading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Downloading...
+                        </>
+                      ) : (
+                        <>
+                          <Download className="w-4 h-4 mr-2 transition-transform group-hover/btn:translate-y-0.5" />
+                          Download {version.version}
+                          <ChevronRight className="w-4 h-4 ml-auto opacity-0 group-hover/btn:opacity-100 transition-all duration-300 transform group-hover/btn:translate-x-1" />
+                        </>
+                      )}
+                    </Button>
+                    
+                    {/* Progress Bar */}
+                    {downloadStates[`MC-${version.version}`]?.isDownloading && (
+                      <div className="mt-3">
+                        <Progress value={downloadStates[`MC-${version.version}`]?.progress || 0} className="h-1.5" />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
 

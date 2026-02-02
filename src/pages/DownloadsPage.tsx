@@ -48,7 +48,7 @@ const DownloadsPage = () => {
   const [lastSeenVersion, setLastSeenVersion] = useState<string | null>(null);
   const [downloadStates, setDownloadStates] = useState<Record<string, DownloadState>>({});
 
-  const checkForUpdates = async () => {
+  const checkForUpdates = async (showNotification = false) => {
     setIsChecking(true);
     try {
       const { data, error } = await supabase.functions.invoke("version-checker");
@@ -74,12 +74,23 @@ const DownloadsPage = () => {
             title: "New version available!",
             description: `Minecraft ${newVersion} is now available`,
           });
+          
+          // Send push notification if enabled
+          if (showNotification && Notification.permission === "granted") {
+            new Notification("🎮 Minecraft Update Available!", {
+              body: `Version ${newVersion} is now available for download!`,
+              icon: "/favicon.png",
+              tag: "minecraft-update",
+            });
+          }
         }
         
         setVersionInfo(data.release);
         setLastChecked(new Date());
         localStorage.setItem("mcVersionInfo", JSON.stringify(data.release));
         localStorage.setItem("mcVersionLastChecked", new Date().toISOString());
+        
+        console.log("Version info updated:", data.release.version, "Changelog sections:", data.release.changelog?.length);
       }
     } catch (error) {
       console.error("Failed to check for updates:", error);
@@ -131,6 +142,43 @@ const DownloadsPage = () => {
     }, 150);
   }, [markVersionAsSeen]);
 
+  // Request push notification permission
+  const requestNotificationPermission = useCallback(async () => {
+    if (!("Notification" in window)) {
+      console.log("This browser does not support notifications");
+      return false;
+    }
+    
+    if (Notification.permission === "granted") {
+      return true;
+    }
+    
+    if (Notification.permission !== "denied") {
+      const permission = await Notification.requestPermission();
+      return permission === "granted";
+    }
+    
+    return false;
+  }, []);
+
+  // Send push notification for new version
+  const sendVersionNotification = useCallback((newVersion: string) => {
+    if (Notification.permission === "granted") {
+      const notification = new Notification("🎮 Minecraft Update Available!", {
+        body: `Version ${newVersion} is now available for download!`,
+        icon: "/favicon.png",
+        badge: "/favicon.png",
+        tag: "minecraft-update",
+        requireInteraction: true,
+      });
+      
+      notification.onclick = () => {
+        window.focus();
+        notification.close();
+      };
+    }
+  }, []);
+
   useEffect(() => {
     const cached = localStorage.getItem("mcVersionInfo");
     const lastCheck = localStorage.getItem("mcVersionLastChecked");
@@ -143,7 +191,17 @@ const DownloadsPage = () => {
     if (cached) {
       try {
         const parsedVersion = JSON.parse(cached);
-        setVersionInfo(parsedVersion);
+        
+        // Validate changelog exists and has proper structure
+        if (parsedVersion.changelog && Array.isArray(parsedVersion.changelog) && parsedVersion.changelog.length > 0) {
+          setVersionInfo(parsedVersion);
+        } else {
+          // Invalid cache, fetch fresh data
+          console.log("Invalid changelog cache, fetching fresh data...");
+          localStorage.removeItem("mcVersionInfo");
+          checkForUpdates();
+          return;
+        }
         
         // Check if current cached version is different from last seen
         if (previousSeenVersion && previousSeenVersion !== parsedVersion.version) {
@@ -151,6 +209,9 @@ const DownloadsPage = () => {
         }
       } catch (e) {
         console.error("Failed to parse cached version:", e);
+        localStorage.removeItem("mcVersionInfo");
+        checkForUpdates();
+        return;
       }
     }
     
@@ -158,10 +219,14 @@ const DownloadsPage = () => {
       setLastChecked(new Date(lastCheck));
     }
 
-    const sixHoursAgo = new Date(Date.now() - 6 * 60 * 60 * 1000);
-    if (!lastCheck || new Date(lastCheck) < sixHoursAgo) {
+    // Always fetch on first load to ensure fresh changelog data
+    const oneHourAgo = new Date(Date.now() - 1 * 60 * 60 * 1000);
+    if (!lastCheck || new Date(lastCheck) < oneHourAgo || !cached) {
       checkForUpdates();
     }
+    
+    // Request notification permission on mount
+    requestNotificationPermission();
   }, []);
 
   const mainVersions = [
@@ -281,7 +346,7 @@ const DownloadsPage = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={checkForUpdates}
+                  onClick={() => checkForUpdates(true)}
                   disabled={isChecking}
                   className="flex items-center gap-2 border-primary/50 hover:bg-primary/10"
                 >
@@ -434,7 +499,7 @@ const DownloadsPage = () => {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={checkForUpdates}
+                onClick={() => checkForUpdates(false)}
                 disabled={isChecking}
                 className="text-primary hover:text-primary/80"
               >

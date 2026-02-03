@@ -492,34 +492,35 @@ const DownloadsPage = () => {
               What's New in {versionInfo.version}
             </h2>
             
-            <Accordion type="single" collapsible className="w-full space-y-3" defaultValue="">
+            <Accordion type="single" collapsible className="w-full space-y-3">
               {versionInfo.changelog && versionInfo.changelog.length > 0 ? (
                 versionInfo.changelog.map((section, index) => (
                   <AccordionItem 
                     key={index} 
                     value={`item-${index}`}
-                    className="border border-primary/20 rounded-xl bg-gaming-elevated/30 hover:bg-gaming-elevated/50 transition-colors data-[state=open]:bg-gaming-elevated"
+                    className="border border-primary/20 rounded-xl bg-gaming-elevated/30 hover:bg-gaming-elevated/50 transition-colors data-[state=open]:bg-gaming-elevated [&[data-state=open]]:border-primary/40"
                   >
-                    <AccordionTrigger className="px-6 py-4 hover:no-underline group [&>svg]:text-primary">
-                      <span className="flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                        <span className="text-gaming-text font-semibold group-hover:text-primary transition-colors">
+                    <AccordionTrigger className="px-6 py-4 hover:no-underline [&>svg]:text-primary [&>svg]:ml-auto">
+                      <div className="flex items-center gap-3 text-left">
+                        <div className="w-2 h-2 rounded-full bg-primary animate-pulse flex-shrink-0" />
+                        <span className="text-gaming-text font-semibold hover:text-primary transition-colors">
                           {section.title}
                         </span>
-                        <span className="text-xs text-gaming-text-muted bg-primary/10 px-2 py-1 rounded-full">
+                        <span className="text-xs text-gaming-text-muted bg-primary/10 px-2 py-1 rounded-full flex-shrink-0">
                           {section.items.length} items
                         </span>
-                      </span>
+                      </div>
                     </AccordionTrigger>
                     <AccordionContent className="px-6 pb-4">
-                      <ul className="space-y-2">
+                      <ul className="space-y-3 pt-2">
                         {section.items.map((item, itemIndex) => (
                           <li 
                             key={itemIndex}
-                            className="flex items-start gap-3 text-gaming-text-muted text-sm"
+                            className="flex items-start gap-3 text-gaming-text-muted text-sm animate-in fade-in-0 slide-in-from-top-2"
+                            style={{ animationDelay: `${itemIndex * 50}ms` }}
                           >
-                            <span className="text-primary mt-1">✦</span>
-                            <span>{item}</span>
+                            <span className="text-primary mt-0.5 flex-shrink-0">✦</span>
+                            <span className="leading-relaxed">{item}</span>
                           </li>
                         ))}
                       </ul>

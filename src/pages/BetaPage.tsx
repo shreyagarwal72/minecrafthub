@@ -198,17 +198,14 @@ const BetaPage = () => {
             {features.map((feature, index) => (
               <div 
                 key={index}
-                className="card-gaming p-6 hover:scale-[1.02] transition-all duration-300 group minecraft-card"
-                style={{
-                  transform: `perspective(1000px) rotateY(${index % 2 === 0 ? -2 : 2}deg)`,
-                }}
+                className="card-gaming p-6 transition-all duration-300 group hover:border-amber-500/50 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1"
               >
                 <div className="flex items-start gap-4">
-                  <div className="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-primary/20 border border-amber-500/30 group-hover:scale-110 transition-transform">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-amber-500/20 to-primary/20 border border-amber-500/30 group-hover:scale-110 transition-transform duration-300">
                     <feature.icon className="w-6 h-6 text-amber-400" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-bold text-gaming-text mb-2">{feature.title}</h3>
+                    <h3 className="text-lg font-bold text-gaming-text mb-2 group-hover:text-amber-400 transition-colors">{feature.title}</h3>
                     <p className="text-gaming-text-muted text-sm leading-relaxed">{feature.description}</p>
                   </div>
                 </div>
@@ -237,22 +234,14 @@ const BetaPage = () => {
 
       <style>{`
         @keyframes float {
-          0%, 100% { transform: translateY(0) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(180deg); }
+          0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+          50% { transform: translateY(-15px) rotate(90deg); opacity: 0.5; }
         }
         
         .minecraft-text {
           font-family: 'Segoe UI', system-ui, sans-serif;
           letter-spacing: 0.05em;
           text-shadow: 2px 2px 0 rgba(0,0,0,0.5), 0 0 20px hsl(var(--primary) / 0.5);
-        }
-        
-        .minecraft-card {
-          transform-style: preserve-3d;
-        }
-        
-        .minecraft-card:hover {
-          transform: perspective(1000px) rotateY(0deg) translateZ(10px) !important;
         }
       `}</style>
     </div>

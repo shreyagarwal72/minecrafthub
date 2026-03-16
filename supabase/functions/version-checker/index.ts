@@ -29,218 +29,215 @@ interface BetaVersionInfo {
   changelog: ChangelogItem[];
 }
 
-async function fetchChangelog(pageUrl: string): Promise<ChangelogItem[]> {
-  try {
-    console.log("Fetching changelog from:", pageUrl);
-    
-    const response = await fetch(pageUrl, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-      },
-    });
+async function fetchPageContent(url: string): Promise<string> {
+  const response = await fetch(url, {
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+      "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    },
+  });
+  if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  return response.text();
+}
 
-    if (!response.ok) {
-      console.error("Failed to fetch changelog page:", response.status);
-      return getDefaultChangelog();
-    }
+function extractChangelog(html: string): ChangelogItem[] {
+  const changelog: ChangelogItem[] = [];
 
-    const html = await response.text();
-    const changelog: ChangelogItem[] = [];
-
-    // Extract changelog sections - look for common patterns
-    // Pattern 1: Look for h2/h3 headers with "What's New" or similar
-    const whatsNewMatch = html.match(/What['']s New[^<]*<\/h[23]>([\s\S]*?)(?=<h[23]|<\/article|<\/div class="entry)/i);
-    
-    if (whatsNewMatch) {
-      const content = whatsNewMatch[1];
-      // Extract list items
-      const listItems = content.match(/<li[^>]*>([^<]+)<\/li>/gi);
-      if (listItems && listItems.length > 0) {
-        const items = listItems
-          .map(item => item.replace(/<[^>]+>/g, '').trim())
-          .filter(item => item.length > 0);
-        
-        if (items.length > 0) {
-          changelog.push({
-            title: "What's New",
-            items: items.slice(0, 10) // Limit to 10 items
-          });
-        }
+  // Extract description text before "Show Content"
+  const descMatch = html.match(/<div class="fullstory-content[^"]*"[^>]*>([\s\S]*?)<div class="content-toggle"/i);
+  if (descMatch) {
+    const descContent = descMatch[1];
+    const listItems = descContent.match(/<li[^>]*>([\s\S]*?)<\/li>/gi);
+    if (listItems && listItems.length > 0) {
+      const items = listItems
+        .map(item => item.replace(/<[^>]+>/g, '').trim())
+        .filter(item => item.length > 3 && item.length < 300);
+      if (items.length > 0) {
+        changelog.push({ title: "New Features", items: items.slice(0, 10) });
       }
     }
+  }
 
-    // Pattern 2: Look for feature lists with bullet points or numbered lists
-    const featureMatches = html.match(/<ul[^>]*class="[^"]*feature[^"]*"[^>]*>([\s\S]*?)<\/ul>/gi);
-    if (featureMatches) {
-      featureMatches.forEach((match, index) => {
-        const listItems = match.match(/<li[^>]*>([^<]+)<\/li>/gi);
+  // Extract from toggle content area
+  const toggleMatch = html.match(/class="content-toggle">([\s\S]*?)(?:<div class="dl-box|<div class="comments-tree)/i);
+  if (toggleMatch) {
+    const content = toggleMatch[1];
+    const allLists = content.match(/<ul[^>]*>([\s\S]*?)<\/ul>/gi);
+    if (allLists) {
+      allLists.slice(0, 3).forEach((list, index) => {
+        const listItems = list.match(/<li[^>]*>([\s\S]*?)<\/li>/gi);
         if (listItems && listItems.length > 0) {
           const items = listItems
             .map(item => item.replace(/<[^>]+>/g, '').trim())
-            .filter(item => item.length > 0);
-          
-          if (items.length > 0 && changelog.length < 3) {
+            .filter(item => item.length > 3 && item.length < 300);
+          if (items.length > 0 && changelog.length < 4) {
             changelog.push({
-              title: `Features ${index + 1}`,
+              title: index === 0 ? "Bug Fixes & Improvements" : `Changes ${index + 1}`,
               items: items.slice(0, 8)
             });
           }
         }
       });
     }
+  }
 
-    // Pattern 3: Generic list extraction from article content
-    if (changelog.length === 0) {
-      const articleMatch = html.match(/<article[^>]*>([\s\S]*?)<\/article>/i) || 
-                          html.match(/<div[^>]*class="[^"]*entry-content[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
+  // Fallback: extract any bullet points from the page
+  if (changelog.length === 0) {
+    const bulletMatch = html.match(/(?:<p>|<div[^>]*>)\s*[-•]\s*([^<]+)/gi);
+    if (bulletMatch && bulletMatch.length > 0) {
+      const items = bulletMatch
+        .map(m => m.replace(/<[^>]+>/g, '').replace(/^[-•]\s*/, '').trim())
+        .filter(item => item.length > 5 && item.length < 300);
+      if (items.length > 0) {
+        changelog.push({ title: "Updates", items: items.slice(0, 8) });
+      }
+    }
+  }
+
+  if (changelog.length === 0) {
+    return [
+      { title: "New Features", items: ["New blocks and items added", "Performance improvements", "Bug fixes and stability updates"] },
+      { title: "Technical Updates", items: ["Improved world generation", "Better chunk loading", "Optimized rendering engine"] }
+    ];
+  }
+
+  return changelog;
+}
+
+function extractFullVersion(html: string): string | null {
+  // Look for "Version X.X.X.X" text in download boxes
+  const versionMatch = html.match(/Version\s+(1\.\d+\.\d+\.\d+)/i);
+  if (versionMatch) return versionMatch[1];
+
+  // Look for version in title
+  const titleMatch = html.match(/<h1[^>]*>[^<]*?(\d+\.\d+(?:\.\d+)*)/i);
+  if (titleMatch) return titleMatch[1];
+
+  return null;
+}
+
+async function fetchLatestVersions(): Promise<{ release: VersionInfo; beta: BetaVersionInfo }> {
+  try {
+    console.log("Fetching latest Minecraft versions from mcpelife.com...");
+    const homepageHtml = await fetchPageContent(MCPE_LIFE_URL);
+
+    // Find all article links with titles
+    // Release pattern: /minecraft-pe-XX-X/ (short slug, 2-part version like "26.3")
+    // Beta pattern: /minecraft-pe-1-XX-XX-XX/ (long slug, 4-part version like "1.26.20.20")
+    const articleRegex = /href="(https:\/\/mcpelife\.com\/(minecraft-pe-[^/]+))\/?"[^>]*title="Minecraft PE ([^"]+)"/gi;
+    
+    let releasePageUrl = "";
+    let releaseDisplayVersion = "";
+    let betaPageUrl = "";
+    let betaDisplayVersion = "";
+    
+    let match;
+    while ((match = articleRegex.exec(homepageHtml)) !== null) {
+      const pageUrl = match[1] + "/";
+      const displayVersion = match[3].trim();
       
-      if (articleMatch) {
-        const content = articleMatch[1];
-        const allLists = content.match(/<ul[^>]*>([\s\S]*?)<\/ul>/gi);
-        
-        if (allLists && allLists.length > 0) {
-          allLists.slice(0, 2).forEach((list, index) => {
-            const listItems = list.match(/<li[^>]*>([\s\S]*?)<\/li>/gi);
-            if (listItems && listItems.length > 0) {
-              const items = listItems
-                .map(item => item.replace(/<[^>]+>/g, '').trim())
-                .filter(item => item.length > 0 && item.length < 200);
-              
-              if (items.length > 0) {
-                changelog.push({
-                  title: index === 0 ? "New Features" : "Bug Fixes & Improvements",
-                  items: items.slice(0, 8)
-                });
-              }
-            }
-          });
-        }
+      // Beta versions have 4-part numbers starting with "1."
+      const isBeta = /^1\.\d+\.\d+\.\d+$/.test(displayVersion);
+      // Release versions have short format like "26.3" or "26.2"
+      const isRelease = /^\d{2}\.\d+$/.test(displayVersion);
+
+      if (isRelease && !releasePageUrl) {
+        releasePageUrl = pageUrl;
+        releaseDisplayVersion = displayVersion;
+        console.log("Found release:", displayVersion, "at", pageUrl);
+      }
+      if (isBeta && !betaPageUrl) {
+        betaPageUrl = pageUrl;
+        betaDisplayVersion = displayVersion;
+        console.log("Found beta:", displayVersion, "at", pageUrl);
+      }
+      
+      if (releasePageUrl && betaPageUrl) break;
+    }
+
+    // Fallback patterns if the above didn't match
+    if (!releasePageUrl) {
+      // Try matching release URLs directly
+      const relMatch = homepageHtml.match(/href="(https:\/\/mcpelife\.com\/minecraft-pe-(\d{2}-\d+))\/"/i);
+      if (relMatch) {
+        releasePageUrl = relMatch[1] + "/";
+        releaseDisplayVersion = relMatch[2].replace(/-/g, '.');
+        console.log("Fallback release found:", releaseDisplayVersion);
+      }
+    }
+    if (!betaPageUrl) {
+      const betMatch = homepageHtml.match(/href="(https:\/\/mcpelife\.com\/minecraft-pe-(1-\d+-\d+-\d+))\/"/i);
+      if (betMatch) {
+        betaPageUrl = betMatch[1] + "/";
+        betaDisplayVersion = betMatch[2].replace(/-/g, '.');
+        console.log("Fallback beta found:", betaDisplayVersion);
       }
     }
 
-    // If still no changelog, return defaults
-    if (changelog.length === 0) {
-      return getDefaultChangelog();
-    }
-
-    console.log("Extracted changelog:", changelog.length, "sections");
-    return changelog;
-  } catch (error) {
-    console.error("Error fetching changelog:", error);
-    return getDefaultChangelog();
-  }
-}
-
-function getDefaultChangelog(): ChangelogItem[] {
-  return [
-    {
-      title: "New Features",
-      items: [
-        "New blocks and items added",
-        "Performance improvements",
-        "Bug fixes and stability updates",
-        "Multiplayer enhancements"
-      ]
-    },
-    {
-      title: "Technical Updates",
-      items: [
-        "Improved world generation",
-        "Better chunk loading",
-        "Optimized rendering engine"
-      ]
-    }
-  ];
-}
-
-async function fetchLatestVersions(): Promise<{
-  release: VersionInfo;
-  beta: BetaVersionInfo;
-}> {
-  try {
-    console.log("Fetching latest Minecraft versions from mcpelife.com...");
-    
-    const response = await fetch(MCPE_LIFE_URL, {
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch: ${response.status}`);
-    }
-
-    const html = await response.text();
-    
-    // Find release version (1.21.xxx pattern - stable releases)
-    const releaseMatch = html.match(/minecraft-pe-(1\.21\.\d+)/i);
-    // Find beta version (1.26.xxx or 1.25.xxx pattern - beta/preview)
-    const betaMatch = html.match(/minecraft-pe-(1\.2[56]\.\d+\.\d+)/i);
-    
-    let releaseVersion = "1.21.132";
-    let betaVersion = "1.26.10.20";
-    
-    if (releaseMatch && releaseMatch[1]) {
-      releaseVersion = releaseMatch[1];
-    }
-    
-    if (betaMatch && betaMatch[1]) {
-      betaVersion = betaMatch[1];
-    }
-
-    console.log(`Found release: ${releaseVersion}, beta: ${betaVersion}`);
-
-    // Construct URLs
-    const releaseSlug = releaseVersion.replace(/\./g, "-");
-    const betaSlug = betaVersion.replace(/\./g, "-");
-    
-    const releasePageUrl = `https://mcpelife.com/minecraft-pe-${releaseSlug}/`;
-    const betaPageUrl = `https://mcpelife.com/minecraft-pe-${betaSlug}/`;
-
-    // Fetch changelogs in parallel
-    const [releaseChangelog, betaChangelog] = await Promise.all([
-      fetchChangelog(releasePageUrl),
-      fetchChangelog(betaPageUrl)
+    // Fetch both pages in parallel for full version info + changelogs
+    const [releaseHtml, betaHtml] = await Promise.all([
+      releasePageUrl ? fetchPageContent(releasePageUrl) : Promise.resolve(""),
+      betaPageUrl ? fetchPageContent(betaPageUrl) : Promise.resolve(""),
     ]);
+
+    // Extract actual full version from release page
+    let releaseVersion = releaseDisplayVersion;
+    if (releaseHtml) {
+      const fullVer = extractFullVersion(releaseHtml);
+      if (fullVer) {
+        releaseVersion = fullVer;
+        console.log("Full release version:", releaseVersion);
+      }
+    }
+
+    let betaVersion = betaDisplayVersion || "1.26.20.20";
+    
+    const releaseChangelog = releaseHtml ? extractChangelog(releaseHtml) : [];
+    const betaChangelog = betaHtml ? extractChangelog(betaHtml) : [];
+
+    const now = new Date().toISOString();
+    const relUrl = releasePageUrl || "https://mcpelife.com/minecraft-pe-26-3/";
+    const betUrl = betaPageUrl || "https://mcpelife.com/minecraft-pe-1-26-20-20/";
 
     return {
       release: {
-        version: releaseVersion,
-        musicLink: `${releasePageUrl}download/1/`,
-        noMusicLink: `${releasePageUrl}download/2/`,
-        updateDate: new Date().toISOString(),
-        pageUrl: releasePageUrl,
-        changelog: releaseChangelog,
+        version: releaseVersion || "1.26.3.1",
+        musicLink: `${relUrl}download/1/`,
+        noMusicLink: `${relUrl}download/2/`,
+        updateDate: now,
+        pageUrl: relUrl,
+        changelog: releaseChangelog.length > 0 ? releaseChangelog : [
+          { title: "New Features", items: ["New mob spawning mechanics", "Improved bedrock visibility", "Enhanced player animations"] },
+        ],
       },
       beta: {
         version: betaVersion,
-        downloadLink: `${betaPageUrl}download/1/`,
-        updateDate: new Date().toISOString(),
-        pageUrl: betaPageUrl,
-        changelog: betaChangelog,
+        downloadLink: `${betUrl}download/1/`,
+        updateDate: now,
+        pageUrl: betUrl,
+        changelog: betaChangelog.length > 0 ? betaChangelog : [
+          { title: "Preview Features", items: ["Experimental gameplay mechanics", "New content previews", "Performance testing"] },
+        ],
       },
     };
   } catch (error) {
     console.error("Error fetching versions:", error);
-    const defaultChangelog = getDefaultChangelog();
-    // Return fallback versions
+    const now = new Date().toISOString();
     return {
       release: {
-        version: "1.21.132",
-        musicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/1/",
-        noMusicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/2/",
-        updateDate: new Date().toISOString(),
-        pageUrl: "https://mcpelife.com/minecraft-pe-1-21-132/",
-        changelog: defaultChangelog,
+        version: "1.26.3.1",
+        musicLink: "https://mcpelife.com/minecraft-pe-26-3/download/1/",
+        noMusicLink: "https://mcpelife.com/minecraft-pe-26-3/download/2/",
+        updateDate: now,
+        pageUrl: "https://mcpelife.com/minecraft-pe-26-3/",
+        changelog: [{ title: "New Features", items: ["New mob spawning mechanics", "Improved visuals", "Bug fixes"] }],
       },
       beta: {
-        version: "1.26.10.20",
-        downloadLink: "https://mcpelife.com/minecraft-pe-1-26-10-20/download/1/",
-        updateDate: new Date().toISOString(),
-        pageUrl: "https://mcpelife.com/minecraft-pe-1-26-10-20/",
-        changelog: defaultChangelog,
+        version: "1.26.20.20",
+        downloadLink: "https://mcpelife.com/minecraft-pe-1-26-20-20/download/1/",
+        updateDate: now,
+        pageUrl: "https://mcpelife.com/minecraft-pe-1-26-20-20/",
+        changelog: [{ title: "Preview Features", items: ["Experimental content", "Performance improvements"] }],
       },
     };
   }
@@ -253,36 +250,14 @@ serve(async (req) => {
 
   try {
     const versions = await fetchLatestVersions();
-
     return new Response(JSON.stringify(versions), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (error) {
     console.error("Version checker error:", error);
-    const defaultChangelog = getDefaultChangelog();
     return new Response(
-      JSON.stringify({ 
-        error: error instanceof Error ? error.message : "Unknown error",
-        release: {
-          version: "1.21.132",
-          musicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/1/",
-          noMusicLink: "https://mcpelife.com/minecraft-pe-1-21-132/download/2/",
-          updateDate: new Date().toISOString(),
-          pageUrl: "https://mcpelife.com/minecraft-pe-1-21-132/",
-          changelog: defaultChangelog,
-        },
-        beta: {
-          version: "1.26.10.20",
-          downloadLink: "https://mcpelife.com/minecraft-pe-1-26-10-20/download/1/",
-          updateDate: new Date().toISOString(),
-          pageUrl: "https://mcpelife.com/minecraft-pe-1-26-10-20/",
-          changelog: defaultChangelog,
-        },
-      }),
-      {
-        status: 200,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
+      JSON.stringify({ error: error instanceof Error ? error.message : "Unknown error" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });

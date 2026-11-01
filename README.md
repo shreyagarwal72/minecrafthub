@@ -20,7 +20,7 @@ Nextup Studio is a comprehensive platform dedicated to providing high-quality Mi
 - ⚔️ **Premium Addons** - Feature-rich addons for combat, furniture, mobs, and quality of life improvements
 - ✨ **Shader Collection** - Performance-optimized shaders for mobile and PC (Newb X Legacy, Prizma, Solar)
 - 📦 **Modified Versions** - Safe and tested modified APKs with enhanced features
-- 🤖 **AI FAQ Assistant** - Get instant answers about content and installation guides
+- 📖 **Interactive FAQ** - Searchable knowledge base with installation guides and answers
 - 📱 **Responsive Design** - Optimized experience across all devices
 - ⚡ **Fast Loading** - Built with modern web technologies for optimal performance
 
@@ -34,10 +34,8 @@ Nextup Studio is a comprehensive platform dedicated to providing high-quality Mi
 - **Tailwind CSS** - Utility-first CSS framework with custom gaming theme
 - **Radix UI + shadcn/ui** - Accessible component primitives
 
-### Backend & AI
-- **Lovable Cloud** - Full-stack backend infrastructure
-- **PostgreSQL** - Robust database for content management
-- **Lovable AI (Google Gemini)** - Powered FAQ chatbot with website context
+### Backend & Services
+- **Supabase** - Cloud database and storage
 - **Edge Functions** - Serverless backend functions
 
 ### Infrastructure
@@ -64,7 +62,7 @@ src/
 │   ├── ShadersPage.tsx  # Shaders showcase
 │   ├── DownloadsPage.tsx# Download center
 │   ├── PatchPage.tsx    # Modified versions
-│   ├── FAQPage.tsx      # AI-powered FAQ
+│   ├── FAQPage.tsx      # Interactive FAQ knowledge base
 │   └── NotFound.tsx     # 404 error page
 ├── assets/              # Images and media files
 ├── lib/                 # Utility functions
@@ -72,7 +70,7 @@ src/
 
 supabase/
 └── functions/
-    └── faq-chat/        # AI chatbot edge function
+    └── version-checker/ # Version checker edge function
 ```
 
 ---
@@ -149,20 +147,14 @@ The optimized production build will be available in the `dist` folder.
 
 ---
 
-## 🤖 AI FAQ Assistant
+## 📖 Interactive FAQ Knowledge Base
 
-Our AI-powered FAQ assistant provides instant answers about:
+Our comprehensive FAQ provides instant answers about:
 - Content availability and compatibility
-- Installation instructions
-- Technical requirements
-- Download procedures
-- Troubleshooting common issues
-
-**Technology:**
-- Powered by Google Gemini 2.5 Flash via Lovable AI
-- Context-aware responses about website content only
-- Real-time streaming chat interface
-- Rate-limited for optimal performance
+- Installation instructions for addons and shaders
+- Technical requirements for Bedrock Edition
+- Download procedures and mirror safety
+- Troubleshooting common mobile and PC issues
 
 ---
 
@@ -216,7 +208,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Contact & Support
 
 - **Website:** [https://minecraft-hub-xi.vercel.app/](https://minecraft-hub-xi.vercel.app/)
-- **AI Support:** Use our FAQ page for instant assistance
+- **FAQ & Help:** Use our FAQ page for instant answers and guides
 - **YouTube**: [@nextupstudioyt](https://www.youtube.com/@nextupstudioyt)
 - **Instagram**: [@vanshu_ag_72](https://instagram.com/vanshu_ag_72)
 

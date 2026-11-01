@@ -29,7 +29,7 @@ const NotFound = () => {
               Browse Downloads
             </McButton>
             <McButton to="/faq" block variant="dark">
-              Ask the FAQ
+              Browse FAQ
             </McButton>
           </div>
         </div>

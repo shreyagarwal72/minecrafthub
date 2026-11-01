@@ -1,12 +1,12 @@
 # Nextup Studio - Professional Minecraft Gaming Hub
 
-[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://minecraft-hub-xi.vercel.app/)
+[![Website](https://img.shields.io/badge/Website-Live-brightgreen)](https://bedrock-minecraft.vercel.app/)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Minecraft](https://img.shields.io/badge/Minecraft-Bedrock-orange)](https://www.minecraft.net/)
 
 > Your ultimate destination for premium Minecraft Bedrock Edition content, featuring worlds, addons, shaders, and modified versions. Creating amazing gaming experiences for the Minecraft community.
 
-🌐 **Live Website:** [https://minecraft-hub-xi.vercel.app/](https://minecraft-hub-xi.vercel.app/)
+🌐 **Live Website:** [https://bedrock-minecraft.vercel.app/](https://bedrock-minecraft.vercel.app/)
 
 ---
 
@@ -207,7 +207,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Contact & Support
 
-- **Website:** [https://minecraft-hub-xi.vercel.app/](https://minecraft-hub-xi.vercel.app/)
+- **Website:** [https://bedrock-minecraft.vercel.app/](https://bedrock-minecraft.vercel.app/)
 - **FAQ & Help:** Use our FAQ page for instant answers and guides
 - **YouTube**: [@nextupstudioyt](https://www.youtube.com/@nextupstudioyt)
 - **Instagram**: [@hereyourchampion](https://instagram.com/hereyourchampion)
@@ -240,6 +240,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 *Creating premium Minecraft experiences*
 
-[Visit Website](https://minecraft-hub-xi.vercel.app/) • [FAQ](https://minecraft-hub-xi.vercel.app/faq) • [Report Bug](https://github.com/yourusername/minecraft-hub/issues)
+[Visit Website](https://bedrock-minecraft.vercel.app/) • [FAQ](https://bedrock-minecraft.vercel.app/faq) • [Report Bug](https://github.com/yourusername/minecraft-hub/issues)
 
 </div>

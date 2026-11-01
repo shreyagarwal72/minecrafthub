@@ -39,20 +39,20 @@ CONTENT CATEGORIES:
 
 3. SHADERS:
 - Newb X Legacy: Lightweight shader for mobile devices
+- BSL Shader: Dynamic lighting and reflective water
 - Prizma Shader: Cinematic lighting effects
 - Solar Shader: Realistic sun and sky rendering
 - Performance optimized for various devices
 
 4. MODIFIED VERSIONS:
-- Official Minecraft Patched version 1.21.132
-- Pure, original experience with enhanced compatibility
+- Minecraft Beta/Preview builds (currently 26.70.22)
+- Early access to upcoming features
 - Latest version with all features and bug fixes
 - All modifications are safe and tested
 
 5. DOWNLOADS:
 - Direct download links for all content
-- Current Minecraft version: 1.21.132 (Latest Release)
-- Official patched version available
+- Current stable Minecraft Bedrock version: 26.60 (Latest Release)
 - Step-by-step installation guides
 - Regular updates and new content
 - Free access to premium content

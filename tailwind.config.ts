@@ -13,6 +13,7 @@ export default {
       },
     },
     extend: {
+      fontFamily: { display: ['"Press Start 2P"', 'monospace'], body: ['VT323', 'monospace'] },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

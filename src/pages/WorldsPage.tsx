@@ -1,82 +1,103 @@
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import Layout from "@/components/Layout";
+import PageHead from "@/components/PageHead";
+import McButton from "@/components/McButton";
+import Reveal from "@/components/Reveal";
+import { WORLDS, WORLD_UPDATES } from "@/data/content";
+import { toast } from "@/lib/toast";
 
 const WorldsPage = () => {
-  const worlds = [
-    {
-      title: "Nextup Studio Minecraft World — Waterfall & Villager Map",
-      images: ["/myworld/1.jpg", "/myworld/2.jpg", "/myworld/3.jpg", "/myworld/4.jpg", "/myworld/5.jpg"],
-      description: "Download my Minecraft Bedrock world with custom biomes, a secret waterfall packed with treasure, and a fully automatic villager breeder system.",
-      downloadLink: "https://drive.google.com/file/d/1CWLSfJrlJPjxc75ISYdlI-XGiHkW9-ot/view?usp=drivesdk",
-      downloadText: "Download My World (.mctemplate)"
-    },
-    {
-      title: "Techno Gamerz Minecraft World Download (.mcworld)",
-      images: ["/Op/1.jpg", "/Op/4.jpg", "/Op/2.jpg", "/Op/3.jpg"],
-      description: "Get the viral Techno Gamerz World for Minecraft Bedrock! Play in the iconic survival world seen in Techno Gamerz's YouTube series.",
-      disclaimer: "Fan download only; all credit and rights to Techno Gamerz (Ujjwal Chaurasia).",
-      downloadLink: "https://www.mediafire.com/file/rrw0dz8ki8w8edg/techno-gamerz-world.mcworld/file",
-      downloadText: "Download Techno Gamerz World (.mcworld)"
-    }
-  ];
+  const [zoom, setZoom] = useState<{ src: string; alt: string } | null>(null);
 
-  const updates = [
-    "Techno Gamerz World for Bedrock now ready for instant download!",
-    "Hidden Waterfall: Adventure treasure spot improved.",
-    "Villager Breeder: Easiest auto-farming and trading system added.",
-    "Site speed and gallery improved for all devices."
-  ];
+  useEffect(() => {
+    if (!zoom) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setZoom(null);
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zoom]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <main className="pt-20">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-3">
-              <span className="text-glow">Survival Adventure Worlds</span>
-            </h1>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Download amazing Minecraft worlds with custom builds, hidden treasures, and epic adventures
-            </p>
-          </div>
+    <Layout title="Survival Adventure Worlds">
+      <div className="mc-container mc-container--narrow">
+        <PageHead
+          icon="grass"
+          title="Select World"
+          subtitle="Download amazing Minecraft Bedrock worlds with custom builds, hidden treasures and epic adventures."
+        />
 
-          {worlds.map((world, index) => (
-            <section key={index} className="card-gaming p-6 mb-8">
-              <h2 className="text-xl font-bold text-primary mb-5">{world.title}</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-5">
-                {world.images.map((image, imgIndex) => (
-                  <div key={imgIndex} className="aspect-video rounded-xl overflow-hidden">
-                    <img src={image} alt={`${world.title} Preview ${imgIndex + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-400" />
-                  </div>
-                ))}
-              </div>
-              <p className="text-muted-foreground mb-3 text-center max-w-3xl mx-auto text-sm"><strong>{world.description}</strong></p>
-              {world.disclaimer && <p className="text-xs text-muted-foreground italic text-center mb-5">{world.disclaimer}</p>}
-              <div className="text-center">
-                <Button asChild className="btn-gaming">
-                  <a href={world.downloadLink} target="_blank" rel="noopener noreferrer">{world.downloadText}</a>
-                </Button>
-              </div>
-            </section>
+        <div className="mc-stack" style={{ ["--gap" as string]: "20px" }}>
+          {WORLDS.map((world, i) => (
+            <Reveal key={world.title} delay={i * 0.1}>
+              <article className="mc-world">
+                <div className="mc-slot mc-world__thumb">
+                  <img src={world.images[0]} alt="" />
+                </div>
+                <div>
+                  <h2 className="mc-world__name">{world.title}</h2>
+                  <p className="mc-world__line">Survival Mode · Bedrock · {world.format}</p>
+                  <p className="mc-world__line">Hosted on {world.source}</p>
+                  <p className="mc-world__desc">{world.description}</p>
+                  {world.disclaimer && <p className="mc-world__line" style={{ marginTop: 8, fontStyle: "italic" }}>{world.disclaimer}</p>}
+                </div>
+
+                <div className="mc-gallery" aria-label={`${world.title} screenshots`}>
+                  {world.images.map((src, n) => (
+                    <button key={src} onClick={() => setZoom({ src, alt: `${world.title} screenshot ${n + 1}` })} aria-label={`Enlarge screenshot ${n + 1}`}>
+                      <span className="mc-slot mc-slot--hover" style={{ display: "block" }}>
+                        <img src={src} alt={`${world.title} screenshot ${n + 1}`} loading="lazy" />
+                      </span>
+                    </button>
+                  ))}
+                </div>
+
+                <div className="mc-world__actions">
+                  <McButton
+                    href={world.downloadLink}
+                    variant="green"
+                    onClick={() => toast({ title: "Opening download", text: world.title, icon: "/icons/grass.png" })}
+                  >
+                    {world.downloadText}
+                  </McButton>
+                  <span className="mc-tip mc-tip--aqua">{world.format}</span>
+                </div>
+              </article>
+            </Reveal>
           ))}
 
-          <section className="card-gaming p-6">
-            <h2 className="text-xl font-bold text-primary mb-4">Latest Minecraft World Updates</h2>
-            <ul className="space-y-2">
-              {updates.map((update, index) => (
-                <li key={index} className="text-muted-foreground text-sm flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span dangerouslySetInnerHTML={{ __html: update }} />
-                </li>
-              ))}
-            </ul>
-          </section>
+          <Reveal>
+            <section className="mc-panel">
+              <h2 className="mc-h2">
+                <img src="/textures/xp.png" alt="" /> LATEST WORLD UPDATES
+              </h2>
+              <ul className="mc-list">
+                {WORLD_UPDATES.map((u) => (
+                  <li key={u}>{u}</li>
+                ))}
+              </ul>
+            </section>
+          </Reveal>
+
+          <Reveal>
+            <section className="mc-panel mc-panel--dark">
+              <h2 className="mc-h2 mc-h2--light">HOW TO INSTALL</h2>
+              <p>
+                Open the downloaded <code>.mcworld</code> or <code>.mctemplate</code> file and Minecraft imports it into your world list.
+                Back up your existing worlds first.
+              </p>
+            </section>
+          </Reveal>
         </div>
-      </main>
-      <Footer />
-    </div>
+      </div>
+
+      {zoom && (
+        <div className="mc-lightbox" role="dialog" aria-modal="true" aria-label="Screenshot" onClick={() => setZoom(null)}>
+          <img src={zoom.src} alt={zoom.alt} />
+          <McButton variant="dark" size="sm" onClick={() => setZoom(null)}>
+            Close
+          </McButton>
+        </div>
+      )}
+    </Layout>
   );
 };
 

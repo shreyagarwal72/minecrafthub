@@ -1,0 +1,411 @@
+/**
+ * Single source of truth for every download link, version and piece of
+ * catalogue content on the site.
+ *
+ * Link sources were re-checked on 1 Nov 2026. `checked: false` marks links that
+ * point at a third-party file host (MediaFire / Drive / CDN) which could not be
+ * verified from here – they are kept as-is from the previous version of the site.
+ */
+
+export interface ChangelogItem {
+  title: string;
+  items: string[];
+}
+
+export interface VersionInfo {
+  version: string;
+  musicLink: string;
+  noMusicLink: string;
+  updateDate: string;
+  pageUrl: string;
+  changelog: ChangelogItem[];
+}
+
+export interface BetaVersionInfo {
+  version: string;
+  downloadLink: string;
+  updateDate: string;
+  pageUrl: string;
+  changelog?: ChangelogItem[];
+}
+
+const MCPEDL = "https://mcpedl.org";
+const apkPage = (slug: string) => `${MCPEDL}/minecraft-pe-${slug}-apk/`;
+
+/* ------------------------------------------------------------------ */
+/* Minecraft Bedrock builds                                            */
+/* ------------------------------------------------------------------ */
+
+export const RELEASE: VersionInfo = {
+  version: "26.60",
+  pageUrl: apkPage("26-60"),
+  musicLink: `${apkPage("26-60")}#download-link`,
+  noMusicLink: `${apkPage("26-60")}#download-link`,
+  updateDate: "2026-10-27",
+  changelog: [
+    {
+      title: "New Features",
+      items: [
+        "Ice Caves – new caves that form beneath cold Overworld biomes (experimental toggle)",
+        "Frostbite zombie – applies Freezing; its Ice Balls can be used for Freezing potions (experimental)",
+        "Building: trapdoors keep their direction while the place button is held",
+        "Pistons can now push Shulkers",
+      ],
+    },
+    {
+      title: "Fixes & Technical",
+      items: [
+        "600+ fixes, 89 of them from player reports",
+        "Touch controls: visual stuttering fixed",
+        "Realms: world uploads and downloads are faster and more reliable",
+        "Pausing during a dimension change no longer leaves you stuck on the loading screen",
+      ],
+    },
+  ],
+};
+
+export const BETA: BetaVersionInfo = {
+  version: "26.70.22",
+  pageUrl: apkPage("26-70-22"),
+  downloadLink: `${apkPage("26-70-22")}#download-link`,
+  updateDate: "2026-10-28",
+  changelog: [
+    {
+      title: "Preview build",
+      items: ["Official Beta & Preview notes are posted on feedback.minecraft.net (link below)."],
+    },
+  ],
+};
+
+export const BETA_NOTES_URL =
+  "https://feedback.minecraft.net/hc/en-us/articles/49967647452685-Minecraft-Beta-Preview-26-70-22";
+
+export const OFFICIAL = {
+  googlePlay: "https://play.google.com/store/apps/details?id=com.mojang.minecraftpe",
+  minecraftNet: "https://www.minecraft.net/en-us/download",
+  changelog26_50: "https://www.minecraft.net/en-us/article/minecraft--bedrock-edition-26-50-changelog",
+};
+
+/** Approximate download sizes taken from the source page (Xbox+servers builds). */
+export const SIZES = { music: "~750 MB", noMusic: "~380 MB" };
+
+export interface ArchiveVersion {
+  version: string;
+  codename: string;
+  releaseDate: string;
+  description: string;
+  highlights: string[];
+  downloadLink: string;
+  icon: IconName;
+  latest?: boolean;
+}
+
+export const ARCHIVE: ArchiveVersion[] = [
+  {
+    version: "26.60",
+    codename: "Ice Caves",
+    releaseDate: "Oct 2026",
+    description: "Experimental Ice Caves and the Frostbite zombie, over 600 fixes, faster Realms uploads and smoother touch controls.",
+    highlights: ["Ice Caves", "Frostbite Zombie", "Realms Speed", "600+ Fixes"],
+    downloadLink: apkPage("26-60"),
+    icon: "diamond",
+    latest: true,
+  },
+  {
+    version: "26.50",
+    codename: "Wilderness Bound",
+    releaseDate: "Sep 2026",
+    description: "Game Drop 3: Abandoned Camps, the Dappled Forest biome, Straw Beds, sit-able Cushions and wool & concrete stairs and slabs.",
+    highlights: ["Abandoned Camps", "Dappled Forest", "Straw Beds", "Cushions"],
+    downloadLink: apkPage("26-50"),
+    icon: "lapis",
+  },
+  {
+    version: "1.21.132",
+    codename: "Tricky Trials",
+    releaseDate: "Jan 2026 (final 1.21 build)",
+    description: "Trial Chambers, the Breeze mob, new copper and tuff blocks, the mace weapon and ominous events.",
+    highlights: ["Trial Chambers", "Breeze Mob", "Mace Weapon", "Ominous Trials"],
+    downloadLink: apkPage("1-21-132"),
+    icon: "obsidian",
+  },
+  {
+    version: "1.20.81",
+    codename: "Trails & Tales",
+    releaseDate: "Apr 2024 (final 1.20 build)",
+    description: "Cherry blossom biomes, archaeology, armor trims, bamboo and hanging signs, camels and sniffers.",
+    highlights: ["Cherry Blossoms", "Archaeology", "Armor Trims", "Camels"],
+    downloadLink: apkPage("1-20-81"),
+    icon: "planks",
+  },
+  {
+    version: "1.19.83",
+    codename: "The Wild Update",
+    releaseDate: "May 2023 (final 1.19 build)",
+    description: "Deep Dark biome, Ancient Cities, the Warden, Mangrove Swamps, Frogs, Allays and mud blocks.",
+    highlights: ["Deep Dark", "Warden", "Mangrove Swamp", "Allays"],
+    downloadLink: apkPage("1-19-83"),
+    icon: "sand",
+  },
+  {
+    version: "1.18.32",
+    codename: "Caves & Cliffs: Part II",
+    releaseDate: "May 2022 (final 1.18 build)",
+    description: "Massive world-generation overhaul with new mountain and cave biomes plus increased world height and depth.",
+    highlights: ["New Caves", "Mountain Biomes", "World Height", "Lush Caves"],
+    downloadLink: apkPage("1-18-32"),
+    icon: "cobble",
+  },
+];
+
+/* ------------------------------------------------------------------ */
+/* Catalogue                                                           */
+/* ------------------------------------------------------------------ */
+
+export type IconName = "grass" | "planks" | "glowstone" | "diamond" | "obsidian" | "lapis" | "cobble" | "netherrack" | "sand";
+
+export interface Addon {
+  title: string;
+  image: string; // public path, or key of a bundled asset ("customAddonPack" | "minecraft3DPack")
+  description: string;
+  downloadLink: string;
+  downloadText: string;
+  source: string;
+  meta?: string;
+  videoLink?: string;
+  checked: boolean;
+}
+
+export const ADDONS: Addon[] = [
+  {
+    title: "Raiyon's Java Combat Addon",
+    image: "/images/2.gif",
+    description:
+      "Bring Java Edition combat to Bedrock: sweeping edge attacks, shield blocking, attack cooldown, critical hits and advanced PvP mechanics.",
+    downloadLink: "https://mcpedl.com/raiyons-java-combat-addon/",
+    downloadText: "Download Java Combat",
+    source: "MCPEDL",
+    meta: "v2.6.5 · updated 24 Oct 2026 · 1.21.132 / 26.0",
+    checked: true,
+  },
+  {
+    title: "Minecraft 3D Texture Pack",
+    image: "minecraft3DPack",
+    description:
+      "Realistic 3D depth on blocks and items without sacrificing performance.",
+    downloadLink: "https://mcpedl.com/leaving/?url=https%3A%2F%2Fdirect-link.net%2F144609%2Ftexture-pack1&blid=142",
+    downloadText: "Download 3D Pack",
+    source: "MCPEDL",
+    checked: false,
+  },
+  {
+    title: "Java Saturation Addon",
+    image: "/images/1.gif",
+    description:
+      "True Java Edition hunger & saturation mechanics in Bedrock. Never worry about unfair food loss again.",
+    downloadLink: "https://www.mediafire.com/file/f5npxzqk25yklgd/Raiyon's+Java+Saturation.mcaddon/file",
+    downloadText: "Download Saturation",
+    source: "MediaFire",
+    checked: false,
+  },
+  {
+    title: "Actions & Stuff",
+    image: "/images/3.jpeg",
+    description:
+      "Tons of new player animations, emotes and creative tweaks. The addon is now officially available on the Minecraft Marketplace – read the release story below.",
+    downloadLink: "https://www.sportskeeda.com/minecraft/minecraft-actions-stuff-add-on-finally-releases-bedrock-marketplace",
+    downloadText: "Read Release Info",
+    source: "Sportskeeda",
+    meta: "Now on the Minecraft Marketplace",
+    checked: true,
+  },
+  {
+    title: "Raiyon Dynamic Lighting",
+    image: "/images/4.jpg",
+    description:
+      "Real moving light sources! Hold a torch, lantern or fire and the world around you lights up instantly.",
+    downloadLink: "https://www.mediafire.com/file/oz8vwi3lhyv9vhl/Dynamic-Lightning.mcaddon/file",
+    downloadText: "Download Lighting",
+    source: "MediaFire",
+    checked: false,
+  },
+  {
+    title: "Raiyon's Useful Offhand",
+    image: "/images/5.gif",
+    description:
+      "Real dual wielding in Bedrock Edition! Use shields, food, totems, arrows and more in your offhand.",
+    downloadLink: "https://www.9minecraft.net/?p=719444",
+    downloadText: "Download Offhand",
+    source: "9Minecraft",
+    meta: "Listed for 26.x and 1.21",
+    checked: true,
+  },
+  {
+    title: "Ty-el's UI Pack v1.2.0",
+    image: "https://img.youtube.com/vi/5CdlEFepD9c/hqdefault.jpg",
+    description:
+      "A complete, clean, responsive Bedrock UI resource pack with animated menus and advanced controls.",
+    videoLink: "https://youtu.be/5CdlEFepD9c?feature=shared",
+    downloadLink: "https://www.mediafire.com/file/pxh53kd6j6ot670/Ty-el.mcpack/file",
+    downloadText: "Download UI Pack",
+    source: "MediaFire",
+    checked: false,
+  },
+  {
+    title: "Optifine Bedrock",
+    image: "/Addons/1.jpeg",
+    description:
+      "Optifine-style Bedrock client pack with gameplay and performance tweaks.",
+    downloadLink: "https://www.mediafire.com/file/xccrf2gasi0nuua/Optifine-Plus-Plus-Client-MCPE-1.20.mcpack.zip/file",
+    downloadText: "Download Optifine",
+    source: "MediaFire",
+    checked: false,
+  },
+  {
+    title: "Custom Addon Pack",
+    image: "customAddonPack",
+    description:
+      "Exclusive custom addon pack handcrafted by Nextup Studio – a unique collection of the best features and enhancements.",
+    downloadLink: "https://www.mediafire.com/file/j9n4hsitabze51j/My+addons.mcaddon/file",
+    downloadText: "Download Custom Pack",
+    source: "Nextup Studio",
+    checked: false,
+  },
+];
+
+export interface Shader {
+  title: string;
+  image: string; // key into bundled assets
+  description: string;
+  downloadLink: string;
+  downloadText: string;
+  source: string;
+  meta?: string;
+  checked: boolean;
+}
+
+export const SHADERS: Shader[] = [
+  {
+    title: "Solar Shader",
+    image: "solar",
+    description:
+      "Realistic lighting, beautiful colors and soft shadows – sunlight, smooth skies and better water for Minecraft Bedrock.",
+    downloadLink: "https://mcpedl.org/solar-shader-minecraft-pe/",
+    downloadText: "Get Solar Shader",
+    source: "MCPEDL",
+    meta: "Solar & Solar Shaders v2 · 1.19.60 – 1.26.60 · updated Jul 2026",
+    checked: true,
+  },
+  {
+    title: "Newb X Legacy",
+    image: "newb",
+    description:
+      "Easy-to-run, clean shader for all devices: sharper shadows, brighter skies, cool water and smooth nights. Always grab the newest .mcpack from the project's releases.",
+    downloadLink: "https://github.com/devendrn/newb-x-mcbe/releases/latest",
+    downloadText: "Get Newb X Legacy",
+    source: "GitHub Releases",
+    meta: "Official project · latest release",
+    checked: true,
+  },
+  {
+    title: "Prizma Visuals",
+    image: "prizma",
+    description:
+      "Vibrant lighting, rainbow water effects, realistic clouds and dramatic sunsets. The page ships Prizma, Prizma Visuals 2.1 and the new 2.2.",
+    downloadLink: "https://mcpedl.org/prizma-shader-minecraft-pe/",
+    downloadText: "Get Prizma Visuals",
+    source: "MCPEDL",
+    meta: "Prizma Visuals 2.2 · up to 1.26.60 · updated Sep 2026",
+    checked: true,
+  },
+  {
+    title: "BSL Shader",
+    image: "bsl",
+    description:
+      "Dynamic lighting, reflective water with ripples, swaying foliage, rich saturated colors, soft shadows and atmospheric skies.",
+    downloadLink: "https://edge.forgecdn.net/files/7242/567/BSL%20Shader.mcpack?ft=60f413137182722f5983b79001577d51&bd=zp8g30su1g",
+    downloadText: "Download BSL Shader",
+    source: "CurseForge CDN",
+    checked: false,
+  },
+];
+
+export interface World {
+  title: string;
+  images: string[];
+  description: string;
+  disclaimer?: string;
+  downloadLink: string;
+  downloadText: string;
+  format: string;
+  source: string;
+  checked: boolean;
+}
+
+export const WORLDS: World[] = [
+  {
+    title: "Waterfall & Villager Map",
+    images: ["/myworld/1.jpg", "/myworld/2.jpg", "/myworld/3.jpg", "/myworld/4.jpg", "/myworld/5.jpg"],
+    description:
+      "Nextup Studio's own Bedrock world: custom biomes, a secret waterfall packed with treasure and a fully automatic villager breeder.",
+    downloadLink: "https://drive.google.com/file/d/1CWLSfJrlJPjxc75ISYdlI-XGiHkW9-ot/view?usp=drivesdk",
+    downloadText: "Download World",
+    format: ".mctemplate",
+    source: "Google Drive",
+    checked: false,
+  },
+  {
+    title: "Techno Gamerz World",
+    images: ["/Op/1.jpg", "/Op/4.jpg", "/Op/2.jpg", "/Op/3.jpg"],
+    description:
+      "The iconic survival world seen in Techno Gamerz's YouTube series, ready to play on Minecraft Bedrock.",
+    disclaimer: "Fan download only; all credit and rights to Techno Gamerz (Ujjwal Chaurasia).",
+    downloadLink: "https://www.mediafire.com/file/rrw0dz8ki8w8edg/techno-gamerz-world.mcworld/file",
+    downloadText: "Download World",
+    format: ".mcworld",
+    source: "MediaFire",
+    checked: false,
+  },
+];
+
+export const WORLD_UPDATES = [
+  "Techno Gamerz World for Bedrock now ready for instant download!",
+  "Hidden Waterfall: adventure treasure spot improved.",
+  "Villager Breeder: easiest auto-farming and trading system added.",
+  "Site speed and gallery improved for all devices.",
+];
+
+export const SOCIAL = {
+  github: "https://github.com/shreyagarwal72",
+  instagram: "https://instagram.com/vanshu_ag_72",
+  youtube: "https://youtube.com/@nextupstudioyt",
+  email: "sanjayvansu1973@gmail.com",
+};
+
+export const SPLASHES = [
+  "Now with 26.60!",
+  "Free downloads!",
+  "Also try Shaders!",
+  "Bedrock approved!",
+  "100% pixelated!",
+  "Addons galore!",
+  "Hello, miner!",
+  "Back up your worlds!",
+  "Ice Caves are cold!",
+  "Crafted by Nextup!",
+];
+
+/* ------------------------------------------------------------------ */
+/* Helpers                                                             */
+/* ------------------------------------------------------------------ */
+
+/** Compare dotted numeric versions: >0 when a is newer than b. */
+export const compareVersions = (a: string, b: string): number => {
+  const pa = a.split(".").map((n) => parseInt(n, 10) || 0);
+  const pb = b.split(".").map((n) => parseInt(n, 10) || 0);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const d = (pa[i] ?? 0) - (pb[i] ?? 0);
+    if (d !== 0) return d;
+  }
+  return 0;
+};

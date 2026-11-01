@@ -2,321 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Liquid Glass Design System — Premium Dark Theme
-   Inspired by Apple visionOS liquid glass + gaming aesthetics.
-   All colors MUST be HSL.
-*/
-
+/* Theme tokens for the remaining shadcn/ui primitives, mapped to the Minecraft palette.
+   The site's actual look lives in src/styles/minecraft.css (imported after this file). */
 @layer base {
   :root {
-    /* Core: Deep space dark */
-    --background: 220 25% 6%;
-    --foreground: 210 25% 92%;
+    --background: 28 30% 10%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 78%;
+    --card-foreground: 0 0% 25%;
+    --popover: 0 0% 78%;
+    --popover-foreground: 0 0% 25%;
+    --primary: 107 53% 37%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 107 55% 52%;
+    --secondary: 0 0% 33%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 22%;
+    --muted-foreground: 0 0% 67%;
+    --accent: 230 20% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0% 0%;
+    --input: 0 0% 0%;
+    --ring: 60 100% 67%;
+    --radius: 0rem;
 
-    --card: 220 30% 10%;
-    --card-foreground: 210 25% 92%;
-
-    --popover: 220 30% 10%;
-    --popover-foreground: 210 25% 92%;
-
-    /* Primary — Refined Emerald */
-    --primary: 160 84% 39%;
-    --primary-foreground: 220 25% 6%;
-    --primary-glow: 160 70% 55%;
-
-    /* Secondary */
-    --secondary: 220 30% 14%;
-    --secondary-foreground: 210 25% 92%;
-
-    --muted: 220 25% 13%;
-    --muted-foreground: 215 15% 55%;
-
-    --accent: 160 45% 22%;
-    --accent-foreground: 210 25% 92%;
-
-    --destructive: 0 72% 55%;
-    --destructive-foreground: 210 25% 92%;
-
-    --border: 220 20% 16%;
-    --input: 220 20% 16%;
-    --ring: 160 84% 39%;
-
-    --radius: 0.875rem;
-
-    /* Gaming/Glass-specific */
-    --gaming-bg: 220 25% 6%;
-    --gaming-surface: 220 30% 10%;
-    --gaming-surface-elevated: 220 25% 14%;
-    --gaming-emerald: 160 84% 39%;
-    --gaming-emerald-bright: 160 70% 55%;
-    --gaming-text: 210 25% 92%;
-    --gaming-text-muted: 215 15% 55%;
-
-    /* Glass tokens */
-    --glass-bg: 220 30% 12% / 0.55;
-    --glass-border: 210 20% 40% / 0.15;
-    --glass-highlight: 0 0% 100% / 0.04;
-    --glass-blur: 24px;
-    --glass-shadow: 0 8px 32px hsl(220 30% 4% / 0.6), 0 0 0 1px hsl(210 20% 30% / 0.08);
-
-    /* Gradients */
-    --gradient-hero: linear-gradient(160deg, hsl(220 25% 6%) 0%, hsl(220 30% 9%) 40%, hsl(160 50% 10% / 0.3) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(220 30% 11% / 0.7) 0%, hsl(220 25% 8% / 0.5) 100%);
-    --gradient-button: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(160 70% 50%) 100%);
-    --gradient-glow: radial-gradient(circle at center, hsl(160 84% 39% / 0.2) 0%, transparent 70%);
-    --gradient-glass-border: linear-gradient(135deg, hsl(0 0% 100% / 0.12), hsl(0 0% 100% / 0.02), hsl(160 84% 39% / 0.08));
-
-    /* Shadows */
-    --shadow-gaming: 0 4px 24px hsl(160 84% 39% / 0.12);
-    --shadow-card: 0 8px 40px hsl(220 30% 4% / 0.5);
-    --shadow-glow: 0 0 50px hsl(160 84% 39% / 0.25);
-
-    /* Transitions */
-    --transition-gaming: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-glow: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
-
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 240 5.3% 26.1%;
-    --sidebar-primary: 240 5.9% 10%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 4.8% 95.9%;
-    --sidebar-accent-foreground: 240 5.9% 10%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 220 30% 4%;
-    --card: 220 35% 8%;
-    --gaming-bg: 220 30% 4%;
-    --gaming-surface: 220 35% 8%;
-    --gaming-surface-elevated: 220 30% 12%;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-background text-foreground antialiased;
-    background: var(--gradient-hero);
-    min-height: 100vh;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  }
-}
-
-@layer components {
-  /* ── Custom Cursor ── */
-  .cursor-none,
-  .cursor-none * {
-    cursor: none !important;
-  }
-  @media (hover: none), (pointer: coarse) {
-    .cursor-none, .cursor-none * {
-      cursor: auto !important;
-    }
-  }
-
-  /* ── Liquid Glass Card ── */
-  .card-gaming {
-    @apply p-6 rounded-2xl transition-all duration-500;
-    background: hsl(var(--glass-bg));
-    backdrop-filter: blur(var(--glass-blur));
-    -webkit-backdrop-filter: blur(var(--glass-blur));
-    border: 1px solid hsl(var(--glass-border));
-    box-shadow: var(--glass-shadow);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .card-gaming::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: var(--gradient-glass-border);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    pointer-events: none;
-  }
-
-  .card-gaming::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, hsl(0 0% 100% / 0.08) 30%, hsl(0 0% 100% / 0.12) 50%, hsl(0 0% 100% / 0.08) 70%, transparent 100%);
-    pointer-events: none;
-  }
-
-  .card-gaming:hover {
-    @apply -translate-y-1;
-    border-color: hsl(160 84% 39% / 0.25);
-    box-shadow: var(--shadow-gaming), 0 20px 60px hsl(220 30% 4% / 0.4);
-  }
-
-  .card-gaming:hover::before {
-    opacity: 1;
-  }
-
-  /* ── Liquid Glass Button ── */
-  .btn-gaming {
-    @apply px-6 py-3 rounded-xl text-sm font-semibold transition-all duration-400;
-    background: var(--gradient-button);
-    box-shadow: var(--shadow-gaming), inset 0 1px 0 hsl(0 0% 100% / 0.15);
-    border: 1px solid hsl(160 84% 39% / 0.6);
-    position: relative;
-    overflow: hidden;
-    color: hsl(var(--primary-foreground));
-  }
-
-  .btn-gaming::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, transparent 0%, hsl(0 0% 100% / 0.15) 50%, transparent 100%);
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  .btn-gaming:hover::before {
-    opacity: 1;
-  }
-
-  .btn-gaming:hover {
-    @apply scale-105;
-    box-shadow: var(--shadow-glow), 0 0 80px hsl(160 84% 39% / 0.3);
-  }
-
-  .btn-gaming:active {
-    @apply scale-95;
-  }
-
-  .btn-gaming-outline {
-    @apply px-6 py-3 rounded-xl text-sm font-semibold border transition-all duration-400;
-    border-color: hsl(160 84% 39% / 0.4);
-    color: hsl(var(--primary));
-    background: hsl(160 84% 39% / 0.05);
-    backdrop-filter: blur(8px);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-gaming-outline::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: hsl(var(--primary));
-    transform: scaleX(0);
-    transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: -1;
-  }
-
-  .btn-gaming-outline:hover::before {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  .btn-gaming-outline:hover {
-    @apply scale-105;
-    color: hsl(var(--primary-foreground));
-    box-shadow: var(--shadow-glow);
-    border-color: hsl(var(--primary));
-  }
-
-  .btn-gaming-outline:active {
-    @apply scale-95;
-  }
-
-  /* ── Glass Text Effects ── */
-  .text-glow {
-    text-shadow: 0 0 30px hsl(160 84% 39% / 0.4), 0 0 60px hsl(160 84% 39% / 0.15);
-  }
-
-  .gaming-title {
-    @apply text-4xl md:text-6xl font-bold text-glow;
-    background: linear-gradient(135deg, hsl(var(--foreground)) 0%, hsl(var(--primary)) 50%, hsl(var(--foreground)) 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 300% 300%;
-    animation: gradient-shift 10s ease infinite;
-  }
-
-  @keyframes gradient-shift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-  }
-
-  /* ── Feature Card ── */
-  .feature-card {
-    @apply transition-all duration-400;
-  }
-
-  .feature-card:hover {
-    @apply -translate-y-1;
-    box-shadow: 0 12px 40px hsl(160 84% 39% / 0.1);
-  }
-
-  /* ── Glass Navigation ── */
-  .glass-nav {
-    background: hsl(220 30% 8% / 0.7);
-    backdrop-filter: blur(24px) saturate(1.4);
-    -webkit-backdrop-filter: blur(24px) saturate(1.4);
-    border-bottom: 1px solid hsl(0 0% 100% / 0.06);
-    box-shadow: 0 4px 30px hsl(220 30% 4% / 0.3);
-  }
-
-  /* ── Liquid Glass Shine ── */
-  .glass-shine {
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-shine::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(
-      135deg,
-      transparent 40%,
-      hsl(0 0% 100% / 0.03) 45%,
-      hsl(0 0% 100% / 0.06) 50%,
-      hsl(0 0% 100% / 0.03) 55%,
-      transparent 60%
-    );
-    transform: translateX(-100%) translateY(-100%);
-    transition: transform 0.8s ease;
-    pointer-events: none;
-  }
-
-  .glass-shine:hover::after {
-    transform: translateX(0%) translateY(0%);
-  }
-
-  /* ── Reduced Motion ── */
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
-    }
+    --gaming-bg: 28 30% 10%;
+    --gaming-surface: 0 0% 78%;
+    --gaming-surface-elevated: 0 0% 55%;
+    --gaming-emerald: 107 53% 37%;
+    --gaming-emerald-bright: 107 55% 52%;
+    --gaming-text: 0 0% 100%;
+    --gaming-text-muted: 0 0% 67%;
   }
 }

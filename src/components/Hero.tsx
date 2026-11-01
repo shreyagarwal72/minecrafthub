@@ -1,72 +1,87 @@
-import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import heroImage from "@/assets/gaming-hero.jpg";
+import { useMemo } from "react";
+import McButton from "@/components/McButton";
+import { RELEASE, SPLASHES } from "@/data/content";
 
+/** Deterministic pseudo-random so the starfield is stable between renders. */
+const STARS = Array.from({ length: 46 }, (_, i) => {
+  const s = Math.sin(i * 91.7) * 10000;
+  const r = s - Math.floor(s);
+  const s2 = Math.sin(i * 17.3 + 4) * 10000;
+  const r2 = s2 - Math.floor(s2);
+  return { left: `${(r * 100).toFixed(2)}%`, top: `${(r2 * 100).toFixed(2)}%`, delay: `${((r + r2) * 2.6).toFixed(2)}s` };
+});
+
+/** Title screen: animated day/night sky, drifting clouds and the main menu. */
 const Hero = () => {
-  const scrollToShowcase = () => {
-    const showcase = document.getElementById("showcase");
-    if (showcase) showcase.scrollIntoView({ behavior: "smooth" });
-  };
+  const splash = useMemo(() => SPLASHES[Math.floor(Math.random() * SPLASHES.length)], []);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 z-0">
-        <img src={heroImage} alt="Gaming Hero Background" className="w-full h-full object-cover opacity-20" loading="eager" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/75 to-background" />
-        {/* Glass grid overlay */}
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `linear-gradient(hsl(var(--primary) / 0.5) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--primary) / 0.5) 1px, transparent 1px)`,
-            backgroundSize: '60px 60px'
-          }}
-        />
+    <section id="home" className="mc-hero" aria-label="Title screen">
+      <div className="mc-sky" aria-hidden="true">
+        <div className="mc-sky__dusk" />
+        <div className="mc-sky__night" />
       </div>
+      <div className="mc-stars" aria-hidden="true">
+        {STARS.map((s, i) => (
+          <span key={i} className="mc-star" style={{ left: s.left, top: s.top, animationDelay: s.delay }} />
+        ))}
+      </div>
+      <div className="mc-orbit" aria-hidden="true">
+        <img className="sun" src="/textures/sun.png" alt="" />
+        <img className="moon" src="/textures/moon.png" alt="" />
+      </div>
+      <div className="mc-cloud mc-cloud--a" aria-hidden="true" />
+      <div className="mc-cloud mc-cloud--b" aria-hidden="true" />
+      <div className="mc-cloud mc-cloud--c" aria-hidden="true" />
+      <div className="mc-night-dim" aria-hidden="true" />
 
-      {/* Ambient glow orbs */}
-      <div className="hidden md:block absolute top-1/4 left-1/4 w-64 h-64 bg-primary/5 rounded-full blur-[120px]" />
-      <div className="hidden md:block absolute bottom-1/3 right-1/4 w-48 h-48 bg-primary/8 rounded-full blur-[100px] animate-pulse" style={{ animationDuration: '6s' }} />
-      <div className="hidden lg:block absolute top-1/2 right-1/3 w-32 h-32 bg-primary/6 rounded-full blur-[80px] animate-pulse" style={{ animationDelay: '3s', animationDuration: '8s' }} />
+      <div className="mc-ground" aria-hidden="true">
+        <img className="mc-tree mc-tree--l" src="/textures/tree.png" alt="" />
+        <img className="mc-tree mc-tree--m" src="/textures/tree.png" alt="" />
+        <img className="mc-tree mc-tree--r" src="/textures/tree.png" alt="" />
+        <div className="mc-ground__grass" />
+        <div className="mc-ground__dirt" />
+      </div>
+      <div className="mc-hero-night-tint" aria-hidden="true" />
 
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <div className="animate-fade-in">
-          <h1 className="gaming-title mb-6">Welcome to Nextup Studio!</h1>
+      <div className="mc-title-wrap">
+        <h1 className="mc-logo">
+          <span className="mc-logo__main">
+            NEXTUP
+            <br />
+            STUDIO
+          </span>
+          <span className="mc-logo__sub">MINECRAFT · BEDROCK · HUB</span>
+          <span className="mc-splash" aria-hidden="true">{splash}</span>
+        </h1>
 
-          <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-4 max-w-3xl mx-auto leading-relaxed">
-            Your hub for Minecraft worlds, Techno Gamerz World downloads,
-            feature-rich Bedrock addons, and stunning shaders.
-          </p>
-
-          <p className="text-sm sm:text-base text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Designed for players seeking adventure, survival, and epic new visuals.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center animate-scale-in">
-            <Button
-              onClick={scrollToShowcase}
-              data-magnetic
-              className="btn-gaming text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 animate-glow-pulse w-full sm:w-auto"
-            >
-              Get Started
-            </Button>
-            <Button
-              asChild
-              data-magnetic
-              className="btn-gaming-outline text-sm sm:text-base px-6 sm:px-8 py-3 sm:py-4 w-full sm:w-auto"
-            >
-              <Link to="/addons">Discover Addons</Link>
-            </Button>
+        <nav className="mc-menu" aria-label="Main menu">
+          <McButton to="/downloads" variant="green" size="lg" block pulse sub={`Latest release · ${RELEASE.version}`}>
+            Download Minecraft
+          </McButton>
+          <McButton to="/worlds" block>
+            Worlds
+          </McButton>
+          <McButton to="/addons" block>
+            Addons
+          </McButton>
+          <McButton to="/shaders" block>
+            Shaders
+          </McButton>
+          <div className="mc-menu__row">
+            <McButton to="/beta">Beta</McButton>
+            <McButton to="/faq">FAQ</McButton>
           </div>
-        </div>
+        </nav>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2">
-        <div className="w-6 h-10 border-2 border-primary/30 rounded-full flex justify-center hover:border-primary/50 transition-colors">
-          <div className="w-1 h-3 bg-primary/60 rounded-full mt-2 animate-bounce" />
-        </div>
+      <a href="#showcase" className="mc-scroll-cue" aria-label="Scroll to the showcase" style={{ textDecoration: "none" }}>
+        ▼ SCROLL ▼
+      </a>
+
+      <div className="mc-hero__foot" aria-hidden="true">
+        <span>Nextup Studio · Bedrock Hub</span>
+        <span>Not affiliated with Mojang or Microsoft</span>
       </div>
     </section>
   );

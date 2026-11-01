@@ -210,7 +210,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Website:** [https://minecraft-hub-xi.vercel.app/](https://minecraft-hub-xi.vercel.app/)
 - **FAQ & Help:** Use our FAQ page for instant answers and guides
 - **YouTube**: [@nextupstudioyt](https://www.youtube.com/@nextupstudioyt)
-- **Instagram**: [@vanshu_ag_72](https://instagram.com/vanshu_ag_72)
+- **Instagram**: [@hereyourchampion](https://instagram.com/hereyourchampion)
 
 ---
 

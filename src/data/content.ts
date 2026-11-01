@@ -377,9 +377,9 @@ export const WORLD_UPDATES = [
 
 export const SOCIAL = {
   github: "https://github.com/shreyagarwal72",
-  instagram: "https://instagram.com/vanshu_ag_72",
+  instagram: "https://instagram.com/hereyourchampion",
   youtube: "https://youtube.com/@nextupstudioyt",
-  email: "sanjayvansu1973@gmail.com",
+  email: "hereyourchampion@gmail.com",
 };
 
 export const SPLASHES = [

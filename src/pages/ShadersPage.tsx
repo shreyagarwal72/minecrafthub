@@ -54,7 +54,7 @@ const ShadersPage = () => (
       <p className="mc-center mc-muted" style={{ marginTop: 28 }}>
         Follow{" "}
         <a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">
-          @vanshu_ag_72
+          @hereyourchampion
         </a>{" "}
         for more.
       </p>

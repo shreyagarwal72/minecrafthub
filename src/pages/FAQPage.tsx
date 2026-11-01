@@ -117,7 +117,7 @@ const FAQ_ITEMS: FAQItem[] = [
       `You can reach out anytime:\n` +
       `• **Email**: ${SOCIAL.email}\n` +
       `• **YouTube**: @nextupstudioyt\n` +
-      `• **Instagram**: @vanshu_ag_72\n\n` +
+      `• **Instagram**: @hereyourchampion\n\n` +
       "Feel free to send questions, content suggestions, or bug reports!",
     tags: ["general", "contact", "support", "email", "social"],
   },

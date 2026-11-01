@@ -32,7 +32,7 @@ const Footer = () => (
             <ul>
               <li><a href={`mailto:${SOCIAL.email}`}>{SOCIAL.email}</a></li>
               <li><a href={SOCIAL.youtube} target="_blank" rel="noopener noreferrer">YouTube @nextupstudioyt</a></li>
-              <li><a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">Instagram @vanshu_ag_72</a></li>
+              <li><a href={SOCIAL.instagram} target="_blank" rel="noopener noreferrer">Instagram @hereyourchampion</a></li>
               <li><a href={SOCIAL.github} target="_blank" rel="noopener noreferrer">GitHub shreyagarwal72</a></li>
             </ul>
           </div>
